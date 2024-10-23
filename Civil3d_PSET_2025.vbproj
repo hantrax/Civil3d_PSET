@@ -1,0 +1,77 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Civil3d_PSET_2025</RootNamespace>
+    <TargetFramework>net8.0-windows</TargetFramework>
+      <ImplicitUsings>enable</ImplicitUsings>
+      <Nullable>enable</Nullable>
+      <Platforms>x64</Platforms>
+      <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+      <UseWindowsForms>true</UseWindowsForms>
+      <UseWPF>true</UseWPF>
+      <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+  </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="AutoCAD.NET" Version="25.0.1" />
+        <PackageReference Include="ClosedXML" Version="0.104.1" />
+        <PackageReference Include="Speckle.Civil3D.API" Version="2025.0.0" />
+        <PackageReference Include="System.Management" Version="8.0.0" />
+    </ItemGroup>
+    <ItemGroup>
+      <Reference Include="AecBaseMgd">
+        <HintPath>..\11_Civil3D\bin\x64\Debug\AecBaseMgd.dll</HintPath>
+      </Reference>
+      <Reference Include="AeccDbMgd">
+        <HintPath>C:\Program Files\Autodesk\AutoCAD 2025\C3D\AeccDbMgd.dll</HintPath>
+      </Reference>
+      <Reference Include="AecPropDataMgd">
+        <HintPath>C:\Program Files\Autodesk\AutoCAD 2025\ACA\AecPropDataMgd.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Update="My Project\Resources.Designer.vb">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Resources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="My Project\Settings.Designer.vb">
+        <DesignTimeSharedInput>True</DesignTimeSharedInput>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Settings.settings</DependentUpon>
+      </Compile>
+      <Compile Update="myCommands - Copia.Designer.vb">
+        <DependentUpon>myCommands - Copia.resx</DependentUpon>
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+      </Compile>
+      <Compile Update="myCommands.Designer.vb">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>myCommands.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Update="My Project\Resources.resx">
+        <CustomToolNamespace>My.Resources</CustomToolNamespace>
+        <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+        <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="myCommands - Copia.resx">
+        <CustomToolNamespace>My.Resources</CustomToolNamespace>
+        <LastGenOutput>myCommands - Copia.Designer.vb</LastGenOutput>
+        <Generator>ResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
+      <EmbeddedResource Update="myCommands.resx">
+        <CustomToolNamespace>My.Resources</CustomToolNamespace>
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>myCommands.Designer.vb</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+    <ItemGroup>
+      <None Update="My Project\Settings.settings">
+        <CustomToolNamespace>My</CustomToolNamespace>
+        <Generator>SettingsSingleFileGenerator</Generator>
+        <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+      </None>
+    </ItemGroup>
+</Project>

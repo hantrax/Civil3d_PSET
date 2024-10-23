@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Civil3d_PSET_2025": {
+      "commandName": "Project"
+    },
+    "Acad": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\Autodesk\\AutoCAD 2025\\acad.exe"
+    }
+  }
+}
