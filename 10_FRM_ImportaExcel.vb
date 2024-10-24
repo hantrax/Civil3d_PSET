@@ -153,230 +153,28 @@ Public Class _00_FRM_OpenFile
 
 
 
-        'myDWG.LockDocument()
 
 
-        '' The name of the property set def.
+        MsgBox("Elaboraziopne Terminata!!!",, _caption)
 
-        '' Could be for objects or styles. Hard coding for simplicity.
+        If lstErrore.Count > 0 Then
 
-        '' This will be the key in the dictionary
+            Me.ListBoxErrori.DataSource = lstErrore
 
-        'Dim propSetDefName As String = "ACADoorObjects"
+        Else
 
-        ''Dim propSetDefName As String = "ACANetDoorStyles"
+            Me.Close()
 
+        End If
 
-        'Try
+        Dim copy_buffer As System.Text.StringBuilder = New System.Text.StringBuilder()
 
-        '    ' (1) create prop set def
+        For Each item As Object In ListBoxErrori.Items
+            copy_buffer.AppendLine(item.ToString())
+        Next
 
+        If copy_buffer.Length > 0 Then Clipboard.SetText(copy_buffer.ToString())
 
-        '    Dim propSetDef As New PropertySetDefinition
-
-        '    propSetDef.SetToStandard(db)
-
-        '    propSetDef.SubSetDatabaseDefaults(db)
-
-        '    ' alternatively, you can use dictionary's NewEntry
-
-        '    'Dim dictPropSetDef = New DictionaryPropertySetDefinitions(db)
-
-        '    'Dim propSetDef As PropertySetDefinition =
-
-        '    '  dictPropSetDef.NewEntry()
-
-
-
-        '    ' General tab
-
-
-        '    propSetDef.Description = "Property Set Definition by ACA.NET"
-
-
-        '    ' Applies To tab
-
-
-        '    ' apply to objects or styles. True if style, False if objects
-
-        '    Dim isStyle As Boolean = False
-
-        '    Dim appliedTo = New StringCollection()
-
-        '    appliedTo.Add("AecDbDoor")       ' apply to a door object 
-
-        '    'appliedTo.Add("AecDbDoorStyle") ' apply to a door style
-
-        '    ' apply to more than one object type, add more here.
-
-        '    'appliedTo.Add("AecDbWindow")   
-
-
-
-        '    propSetDef.SetAppliesToFilter(appliedTo, isStyle)
-
-
-
-        '    ' Definition tab
-
-
-
-        '    ' (2) we can add a set of property definitions. 
-
-        '    ' We first make a container to hold them.
-
-        '    ' This is the main part. A property set definition can contain
-
-        '    ' a set of property definition.
-
-
-
-        '    ' (2.1) let's first add manual property.
-
-        '    ' Here we use text type
-
-
-
-        '    'Dim listdef As Db.ListDefinition = New Db.ListDefinition()
-        '    'Dim listdefid As ObjectId
-
-        '    'Using trans As OpenCloseTransaction = db.TransactionManager.StartOpenCloseTransaction()
-        '    '    listdefid = db.AddDBObject(listdef)
-        '    '    trans.AddNewlyCreatedDBObject(listdef, True)
-        '    '    Dim dict0 As Db.DictionaryListDefinition = New Db.DictionaryListDefinition(db)
-        '    '    dict0.AddNewRecord("MyList", listdef)
-        '    '    listdef.AddListItem("fisrt")
-        '    '    listdef.AddListItem("second")
-        '    '    listdef.AddListItem("555")
-        '    '    trans.Commit()
-        '    'End Using
-
-        '    'Dim propDefManual2 As PropertyDefinition = New PropertyDefinition()
-        '    'propDefManual2.SetToStandard(db)
-        '    'propDefManual2.SubSetDatabaseDefaults(db)
-        '    'propDefManual2.Name = "ManualPropList"
-        '    'propDefManual2.Description = "Manual property List"
-        '    'propDefManual2.DataType = Autodesk.Aec.PropertyData.DataType.List
-        '    'propDefManual2.ListDefinitionId = listdef.Id
-        '    'propDefManual2.DefaultData = "555"
-        '    'propSetDef.Definitions.Add(propDefManual2)
-
-
-
-
-
-
-
-
-        '    Dim propDefManual = New PropertyDefinition()
-
-        '    propDefManual.SetToStandard(db)
-
-        '    propDefManual.SubSetDatabaseDefaults(db)
-
-        '    propDefManual.Name = "ACAManualProp"
-
-        '    propDefManual.Description = "Manual property by ACA.NET"
-
-        '    propDefManual.DataType = Autodesk.Aec.PropertyData.DataType.Text
-
-        '    propDefManual.DefaultData = "ACA Default"
-
-        '    ' add to the prop set def
-
-        '    propSetDef.Definitions.Add(propDefManual)
-
-
-
-        '    ' (2.2) let's add another one, automatic one this time
-
-
-
-        '    'Dim propDefAutomatic = New PropertyDefinition()
-
-        '    'propDefAutomatic.SetToStandard(db)
-
-        '    'propDefAutomatic.SubSetDatabaseDefaults(db)
-
-        '    'propDefAutomatic.Name = "ACAWidth"
-
-        '    'propDefAutomatic.Description = "Automatic property by ACA.NET"
-
-        '    'propDefAutomatic.SetAutomaticData("AecDbDoor", "Width")
-
-        '    '' add to the prop set def
-
-        '    'propSetDef.Definitions.Add(propDefAutomatic)
-
-
-
-        '    ' similarly, add one with height
-
-
-
-        '    'propDefAutomatic = New PropertyDefinition()
-
-        '    'propDefAutomatic.SetToStandard(db)
-
-        '    'propDefAutomatic.SubSetDatabaseDefaults(db)
-
-        '    'propDefAutomatic.Name = "ACAHeight"
-
-        '    'propDefAutomatic.Description = "Automatic property by ACA.NET"
-
-        '    'propDefAutomatic.SetAutomaticData("AecDbDoor", "Height")
-
-        '    ''  add to the prop set def
-
-        '    'propSetDef.Definitions.Add(propDefAutomatic)
-
-
-
-        '    ' (3)  finally add the prop set def to the database
-
-
-
-        '    Using tr As Transaction = db.TransactionManager.StartTransaction()
-
-
-
-        '        '  check the name
-
-        '        Dim dictPropSetDef = New DictionaryPropertySetDefinitions(db)
-
-        '        If dictPropSetDef.Has(propSetDefName, tr) Then
-
-        '            ed.WriteMessage("error - the property set defintion already exists: " + propSetDefName + vbCrLf)
-
-        '            Return
-
-        '        End If
-
-
-
-        '        dictPropSetDef.AddNewRecord(propSetDefName, propSetDef)
-
-        '        tr.AddNewlyCreatedDBObject(propSetDef, True)
-
-        '        tr.Commit()
-
-
-
-        '    End Using
-
-
-
-        'Catch ex As AutoCAD.Runtime.Exception
-
-        '    ed.WriteMessage("error in CreatePropSetDef: " + ex.ToString + vbCrLf)
-
-        '    Return
-
-        'End Try
-
-
-
-        'ed.WriteMessage("property set definition " + propSetDefName + " is successfully created." + vbCrLf)
 
 a5: End Sub
 
@@ -441,9 +239,13 @@ a3: End Sub
     Private Sub TXT_WATCHPATH_TextChanged(sender As Object, e As EventArgs)
 
     End Sub
+    Private Sub ListBoxErrori_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs)
 
+    End Sub
     Private Sub _00_FRM_SetCart_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = _caption
+
+        lstErrore.Clear()
 
 
 
@@ -453,47 +255,160 @@ a3: End Sub
         Dim propSetDefId As ObjectId = Nothing
         Dim propSetDefName As String = pset
         Dim dictPropSetDef = New DictionaryPropertySetDefinitions(db)
+
+
         Dim className As String = RXObject.GetClass(GetType(Line)).Name
+        Dim propSetDef As PropertySetDefinition
 
 
         Using tr As Transaction = db.TransactionManager.StartTransaction
-            If dictPropSetDef.Has(propSetDefName, tr) Then
-                propSetDefId = dictPropSetDef.GetAt(propSetDefName)
-                tr.Commit()
-            Else
-                'Create a New PropertySetDefinition 
-                Dim propSetDef As PropertySetDefinition = dictPropSetDef.NewEntry
+            If dictPropSetDef.Has(propSetDefName, tr) = False Then
+                propSetDef = dictPropSetDef.NewEntry
                 propSetDef.Description = pset
                 Dim isStyle As Boolean = False
 
 
+
+
+
                 Dim appliedTo As New StringCollection
-                appliedTo.Add(className)
+
+
+
+                appliedTo.Add("*")
                 propSetDef.SetAppliesToFilter(appliedTo, isStyle)
 
-                'Create a new Property and add it to the PropertySetDefinition
+                dictPropSetDef.AddNewRecord(propSetDefName, propSetDef)
+                tr.AddNewlyCreatedDBObject(propSetDef, True)
+
+                'Add the new PropertySetDefinition to the PropertySetDefinition Dictionary
+                ' dictPropSetDef.AddNewRecord(propSetDefName, propSetDef)
+                'tr.AddNewlyCreatedDBObject(propSetDef, True)
+
+
+
+            Else
+
+                propSetDefId = dictPropSetDef.GetAt(propSetDefName)
+
+                propSetDef = tr.GetObject(propSetDefId, OpenMode.ForWrite)
+
+
+            End If
+
+            Dim propertyExists As Boolean = False
+
+
+
+            For Each propDef As PropertyDefinition In propSetDef.Definitions
+                If propDef.Name.Equals(param, StringComparison.OrdinalIgnoreCase) Then
+                    propertyExists = True
+
+
+                End If
+            Next
+
+
+            If propertyExists = False Then
                 Dim strProp As New PropertyDefinition
+                strProp.SetToStandard(db)
+                strProp.SubSetDatabaseDefaults(db)
                 strProp.Name = param
                 strProp.Description = param
                 strProp.DataType = Autodesk.Aec.PropertyData.DataType.Text
-                strProp.DefaultData = ""
-                'strProp.UnitType = UnitsType'
-
-
+                strProp.DefaultData = "xx"
+                'Create a new Property and add it to the PropertySetDefinition
                 propSetDef.Definitions.Add(strProp)
+                propertyExists = False
 
-                'Add the new PropertySetDefinition to the PropertySetDefinition Dictionary
-                dictPropSetDef.AddNewRecord(propSetDefName, propSetDef)
-                tr.AddNewlyCreatedDBObject(propSetDef, True)
-                tr.Commit()
+            Else
 
-                propSetDefId = propSetDef.ObjectId
+                lstErrore.Add(propSetDef.Name & "|" & param)
+
             End If
+
+
+            tr.Commit()
+
         End Using
 
-        Return propSetDefId
+
+
+
+
+
+
+
+        '    Using tr As Transaction = db.TransactionManager.StartTransaction
+        '        If dictPropSetDef.Has(propSetDefName, tr) Then
+        '            propSetDefId = dictPropSetDef.GetAt(propSetDefName)
+
+        '            Dim propSetDef As PropertySetDefinition = tr.GetObject(propSetDefId, OpenMode.ForWrite)
+        '            'tr.Commit()
+
+        '            Dim isStyle As Boolean = False
+
+
+        '            Dim appliedTo As New StringCollection
+        '            appliedTo.Add(className)
+        '            propSetDef.SetAppliesToFilter(appliedTo, isStyle)
+
+        '            'Create a new Property and add it to the PropertySetDefinition
+        '            Dim strProp As New PropertyDefinition
+        '            strProp.Name = param
+        '            strProp.Description = param
+        '            strProp.DataType = Autodesk.Aec.PropertyData.DataType.Text
+        '            strProp.DefaultData = ""
+        '            'strProp.UnitType = UnitsType'
+
+
+        '            propSetDef.Definitions.Add(strProp)
+
+        '            'Add the new PropertySetDefinition to the PropertySetDefinition Dictionary
+        '            dictPropSetDef.AddNewRecord(propSetDefName, propSetDef)
+
+
+        '            tr.AddNewlyCreatedDBObject(propSetDef, True)
+        '            tr.Commit()
+
+        '            propSetDefId = propSetDef.ObjectId
+
+
+        '        Else
+        '            'Create a New PropertySetDefinition 
+        '            Dim propSetDef As PropertySetDefinition = dictPropSetDef.NewEntry
+        '            propSetDef.Description = pset
+        '            Dim isStyle As Boolean = False
+
+
+        '            Dim appliedTo As New StringCollection
+        '            appliedTo.Add(className)
+        '            propSetDef.SetAppliesToFilter(appliedTo, isStyle)
+
+        '            'Create a new Property and add it to the PropertySetDefinition
+        '            Dim strProp As New PropertyDefinition
+        '            strProp.Name = param
+        '            strProp.Description = param
+        '            strProp.DataType = Autodesk.Aec.PropertyData.DataType.Text
+        '            strProp.DefaultData = ""
+        '            'strProp.UnitType = UnitsType'
+
+
+        '            propSetDef.Definitions.Add(strProp)
+
+        '            'Add the new PropertySetDefinition to the PropertySetDefinition Dictionary
+        '            dictPropSetDef.AddNewRecord(propSetDefName, propSetDef)
+        '            tr.AddNewlyCreatedDBObject(propSetDef, True)
+        '            tr.Commit()
+
+        '            propSetDefId = propSetDef.ObjectId
+        '        End If
+        '    End Using
+
+        '    Return propSetDefId
     End Function
 
+    Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBoxErrori.SelectedIndexChanged
 
-
+    End Sub
 End Class

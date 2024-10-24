@@ -42,6 +42,8 @@ Module Variabili
 
     Public strRibbon_Tab As String = "Auto PLUG-IN"
     Public strRibbon_Panel As String = "Cartigli"
+    Public lstParametri As New List(Of ListaParametri)
+    Public lstErrore As New List(Of String)
 
 
 

@@ -33,6 +33,7 @@ Partial Class _00_FRM_OpenFile
         ButtonOk = New System.Windows.Forms.Button()
         ButtonANN = New System.Windows.Forms.Button()
         ProgressBar1 = New System.Windows.Forms.ProgressBar()
+        ListBoxErrori = New System.Windows.Forms.ListBox()
         GroupBox1.SuspendLayout()
         SuspendLayout()
         ' 
@@ -130,11 +131,22 @@ Partial Class _00_FRM_OpenFile
         ProgressBar1.Size = New System.Drawing.Size(825, 38)
         ProgressBar1.TabIndex = 29
         ' 
+        ' ListBoxErrori
+        ' 
+        ListBoxErrori.FormattingEnabled = True
+        ListBoxErrori.ItemHeight = 15
+        ListBoxErrori.Location = New System.Drawing.Point(23, 280)
+        ListBoxErrori.Name = "ListBoxErrori"
+        ListBoxErrori.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple
+        ListBoxErrori.Size = New System.Drawing.Size(825, 304)
+        ListBoxErrori.TabIndex = 30
+        ' 
         ' _00_FRM_OpenFile
         ' 
         AutoScaleDimensions = New System.Drawing.SizeF(7F, 15F)
         AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        ClientSize = New System.Drawing.Size(876, 278)
+        ClientSize = New System.Drawing.Size(876, 597)
+        Controls.Add(ListBoxErrori)
         Controls.Add(ProgressBar1)
         Controls.Add(LabelDEMO)
         Controls.Add(ButtonANN)
@@ -143,7 +155,8 @@ Partial Class _00_FRM_OpenFile
         Controls.Add(Label1)
         Controls.Add(GroupBox1)
         Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
-        MaximumSize = New System.Drawing.Size(892, 317)
+        MaximumSize = New System.Drawing.Size(892, 636)
+        MinimumSize = New System.Drawing.Size(892, 636)
         Name = "_00_FRM_OpenFile"
         StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         GroupBox1.ResumeLayout(False)
@@ -162,4 +175,5 @@ Partial Class _00_FRM_OpenFile
     Friend WithEvents ButtonOk As System.Windows.Forms.Button
     Friend WithEvents ButtonANN As System.Windows.Forms.Button
     Friend WithEvents ProgressBar1 As System.Windows.Forms.ProgressBar
+    Friend WithEvents ListBoxErrori As System.Windows.Forms.ListBox
 End Class
