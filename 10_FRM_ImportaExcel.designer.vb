@@ -26,7 +26,6 @@ Partial Class _00_FRM_OpenFile
         FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         GroupBox1 = New System.Windows.Forms.GroupBox()
         ButtonPDF = New System.Windows.Forms.Button()
-        Label1 = New System.Windows.Forms.Label()
         Label_mail = New System.Windows.Forms.Label()
         LabelDEMO = New System.Windows.Forms.Label()
         SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
@@ -34,7 +33,10 @@ Partial Class _00_FRM_OpenFile
         ButtonANN = New System.Windows.Forms.Button()
         ProgressBar1 = New System.Windows.Forms.ProgressBar()
         ListBoxErrori = New System.Windows.Forms.ListBox()
+        GroupBox2 = New System.Windows.Forms.GroupBox()
+        TextBox1 = New System.Windows.Forms.TextBox()
         GroupBox1.SuspendLayout()
+        GroupBox2.SuspendLayout()
         SuspendLayout()
         ' 
         ' OpenFileDialog1
@@ -64,23 +66,13 @@ Partial Class _00_FRM_OpenFile
         ButtonPDF.Text = "Seleziona File Excel..."
         ButtonPDF.UseVisualStyleBackColor = True
         ' 
-        ' Label1
-        ' 
-        Label1.AutoSize = True
-        Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.78182F, Drawing.FontStyle.Bold, Drawing.GraphicsUnit.Point, CByte(0))
-        Label1.Location = New System.Drawing.Point(23, 138)
-        Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Label1.Name = "Label1"
-        Label1.Size = New System.Drawing.Size(137, 20)
-        Label1.TabIndex = 26
-        Label1.Text = "Stefano CARTA"
-        Label1.TextAlign = Drawing.ContentAlignment.BottomLeft
-        ' 
         ' Label_mail
         ' 
         Label_mail.AutoSize = True
+        Label_mail.BackColor = Drawing.Color.DimGray
         Label_mail.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.78182F, Drawing.FontStyle.Bold, Drawing.GraphicsUnit.Point, CByte(0))
-        Label_mail.Location = New System.Drawing.Point(204, 138)
+        Label_mail.ForeColor = Drawing.Color.White
+        Label_mail.Location = New System.Drawing.Point(233, 139)
         Label_mail.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Label_mail.Name = "Label_mail"
         Label_mail.Size = New System.Drawing.Size(233, 20)
@@ -92,7 +84,7 @@ Partial Class _00_FRM_OpenFile
         ' 
         LabelDEMO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.78182F, Drawing.FontStyle.Bold, Drawing.GraphicsUnit.Point, CByte(0))
         LabelDEMO.ForeColor = Drawing.Color.Red
-        LabelDEMO.Location = New System.Drawing.Point(23, 179)
+        LabelDEMO.Location = New System.Drawing.Point(14, 170)
         LabelDEMO.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         LabelDEMO.Name = "LabelDEMO"
         LabelDEMO.Size = New System.Drawing.Size(706, 23)
@@ -126,7 +118,7 @@ Partial Class _00_FRM_OpenFile
         ' 
         ' ProgressBar1
         ' 
-        ProgressBar1.Location = New System.Drawing.Point(23, 218)
+        ProgressBar1.Location = New System.Drawing.Point(23, 196)
         ProgressBar1.Name = "ProgressBar1"
         ProgressBar1.Size = New System.Drawing.Size(825, 38)
         ProgressBar1.TabIndex = 29
@@ -134,25 +126,46 @@ Partial Class _00_FRM_OpenFile
         ' ListBoxErrori
         ' 
         ListBoxErrori.FormattingEnabled = True
-        ListBoxErrori.ItemHeight = 15
-        ListBoxErrori.Location = New System.Drawing.Point(23, 280)
+        ListBoxErrori.Location = New System.Drawing.Point(6, 25)
         ListBoxErrori.Name = "ListBoxErrori"
         ListBoxErrori.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple
-        ListBoxErrori.Size = New System.Drawing.Size(825, 304)
+        ListBoxErrori.Size = New System.Drawing.Size(813, 308)
         ListBoxErrori.TabIndex = 30
+        ' 
+        ' GroupBox2
+        ' 
+        GroupBox2.Controls.Add(ListBoxErrori)
+        GroupBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75F, Drawing.FontStyle.Regular, Drawing.GraphicsUnit.Point, CByte(0))
+        GroupBox2.Location = New System.Drawing.Point(23, 240)
+        GroupBox2.Name = "GroupBox2"
+        GroupBox2.Size = New System.Drawing.Size(825, 345)
+        GroupBox2.TabIndex = 31
+        GroupBox2.TabStop = False
+        GroupBox2.Text = "Parametri Duplicati - I dati sono stati copiati negli appunti"
+        ' 
+        ' TextBox1
+        ' 
+        TextBox1.BackColor = Drawing.Color.DimGray
+        TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25F, Drawing.FontStyle.Bold, Drawing.GraphicsUnit.Point, CByte(0))
+        TextBox1.ForeColor = Drawing.Color.White
+        TextBox1.Location = New System.Drawing.Point(12, 134)
+        TextBox1.Name = "TextBox1"
+        TextBox1.Size = New System.Drawing.Size(495, 29)
+        TextBox1.TabIndex = 32
+        TextBox1.Text = "STEFANO CARTA"
         ' 
         ' _00_FRM_OpenFile
         ' 
         AutoScaleDimensions = New System.Drawing.SizeF(7F, 15F)
         AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         ClientSize = New System.Drawing.Size(876, 597)
-        Controls.Add(ListBoxErrori)
+        Controls.Add(Label_mail)
+        Controls.Add(TextBox1)
+        Controls.Add(GroupBox2)
         Controls.Add(ProgressBar1)
         Controls.Add(LabelDEMO)
         Controls.Add(ButtonANN)
-        Controls.Add(Label_mail)
         Controls.Add(ButtonOk)
-        Controls.Add(Label1)
         Controls.Add(GroupBox1)
         Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         MaximumSize = New System.Drawing.Size(892, 636)
@@ -160,6 +173,7 @@ Partial Class _00_FRM_OpenFile
         Name = "_00_FRM_OpenFile"
         StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         GroupBox1.ResumeLayout(False)
+        GroupBox2.ResumeLayout(False)
         ResumeLayout(False)
         PerformLayout()
 
@@ -167,7 +181,6 @@ Partial Class _00_FRM_OpenFile
     Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
     Friend WithEvents FolderBrowserDialog1 As System.Windows.Forms.FolderBrowserDialog
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Label_mail As System.Windows.Forms.Label
     Friend WithEvents LabelDEMO As System.Windows.Forms.Label
     Friend WithEvents ButtonPDF As System.Windows.Forms.Button
@@ -176,4 +189,6 @@ Partial Class _00_FRM_OpenFile
     Friend WithEvents ButtonANN As System.Windows.Forms.Button
     Friend WithEvents ProgressBar1 As System.Windows.Forms.ProgressBar
     Friend WithEvents ListBoxErrori As System.Windows.Forms.ListBox
+    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
+    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
 End Class

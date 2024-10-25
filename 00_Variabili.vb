@@ -1,8 +1,8 @@
 ﻿Imports System.Reflection
 
 
-<Assembly: AssemblyVersion("2025.0.0.1")>
-<Assembly: AssemblyFileVersion("2025.0.0.1")>
+<Assembly: AssemblyVersion("2025.0.0.3")>
+<Assembly: AssemblyFileVersion("2025.0.0.3")>
 
 Module Variabili
 
@@ -27,12 +27,11 @@ Module Variabili
     Public Path_Image As String = Path_Assembly & "\Image\"
 
     Public ParteFissa As String = "!!*CartAutom2023*!!"
-    Public NomeProgr As String = "ImportaPSET"
+    Public NomeProgr As String = "ImportaPSET_Civil3D"
     Public File_LIC As String = "C:\ProgramData\" & NomeProgr & "\" & NomeProgr & "lic.dat"
-    Public Path_AssemblyTMP As String = "C:\ProgramData\" & NomeProgr & "\tmp"
     Public Path_AssemblyTXT As String = "C:\ProgramData\" & NomeProgr & "\"
 
-    Public excelTemplate As String = Path_Assembly & "\cart_auto_template.xlsx"
+    Public excelTemplate As String = Path_Assembly & "\pset_template.xlsx"
 
     Public strPath As String = ""
     Public nomeCart As String = ""
@@ -41,7 +40,7 @@ Module Variabili
     Public LayoutTipo As String = ""
 
     Public strRibbon_Tab As String = "Auto PLUG-IN"
-    Public strRibbon_Panel As String = "Cartigli"
+    Public strRibbon_Panel As String = "Civil 3D"
     Public lstParametri As New List(Of ListaParametri)
     Public lstErrore As New List(Of String)
 

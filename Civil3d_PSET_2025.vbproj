@@ -39,15 +39,10 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>Settings.settings</DependentUpon>
       </Compile>
-      <Compile Update="myCommands - Copia.Designer.vb">
-        <DependentUpon>myCommands - Copia.resx</DependentUpon>
+      <Compile Update="04_ImportaPset.Designer.vb">
+        <DependentUpon>04_ImportaPset.resx</DependentUpon>
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
-      </Compile>
-      <Compile Update="myCommands.Designer.vb">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>myCommands.resx</DependentUpon>
       </Compile>
     </ItemGroup>
     <ItemGroup>
@@ -56,15 +51,10 @@
         <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
         <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="myCommands - Copia.resx">
+      <EmbeddedResource Update="04_ImportaPset.resx">
         <CustomToolNamespace>My.Resources</CustomToolNamespace>
-        <LastGenOutput>myCommands - Copia.Designer.vb</LastGenOutput>
+        <LastGenOutput>04_ImportaPset.Designer.vb</LastGenOutput>
         <Generator>ResXFileCodeGenerator</Generator>
-      </EmbeddedResource>
-      <EmbeddedResource Update="myCommands.resx">
-        <CustomToolNamespace>My.Resources</CustomToolNamespace>
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>myCommands.Designer.vb</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>

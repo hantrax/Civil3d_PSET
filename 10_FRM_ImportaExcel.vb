@@ -18,6 +18,7 @@ Imports ClosedXML.Excel
 Imports Application = Autodesk.AutoCAD.ApplicationServices.Application
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports System.Collections.Specialized
+Imports Autodesk.Civil.DatabaseServices
 
 Public Class _00_FRM_OpenFile
 
@@ -111,9 +112,6 @@ Public Class _00_FRM_OpenFile
 
 
 
-
-
-
         Catch ex As System.Exception
 
             MsgBox("Qualcosa non ha funzionato...", _caption)
@@ -155,7 +153,7 @@ Public Class _00_FRM_OpenFile
 
 
 
-        MsgBox("Elaboraziopne Terminata!!!",, _caption)
+        MsgBox("Elaborazione Terminata!!!",, _caption)
 
         If lstErrore.Count > 0 Then
 
@@ -175,6 +173,12 @@ Public Class _00_FRM_OpenFile
 
         If copy_buffer.Length > 0 Then Clipboard.SetText(copy_buffer.ToString())
 
+        If TipoLIC = "DEMO" Then
+
+            My.Settings.dataUtilizzo = Today
+            My.Settings.numEsecuzioni = My.Settings.numEsecuzioni - 1
+
+        End If
 
 a5: End Sub
 
@@ -192,12 +196,7 @@ a5: End Sub
     End Sub
 
 
-
-
-
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ButtonPDF.Click
-
-
 
         OpenFileDialog1 = New OpenFileDialog() With {
             .FileName = "Seleziona File Excel",
@@ -206,29 +205,33 @@ a5: End Sub
         }
 
 
+
+
         ' Call ShowDialog.
-        Dim dlgresult As DialogResult = OpenFileDialog1.ShowDialog()
+        Dim dlgresult = OpenFileDialog1.ShowDialog
 
         ' Test result.
         If dlgresult = DialogResult.OK Then
 
             ' Get the file name.
-            Dim path As String = OpenFileDialog1.FileName
+            Dim path = OpenFileDialog1.FileName
 
             Try
 
 
                 strNomeFile = OpenFileDialog1.FileName
 
-                Me.ButtonOk.Enabled = True
-                Me.ButtonOk.Visible = True
+                ButtonOk.Enabled = True
+                ButtonOk.Visible = True
             Catch ex As System.Exception
 
                 ' Report an error.
-                Me.Text = "Error"
+                Text = "Error"
 
             End Try
         End If
+
+
 
 a3: End Sub
 
@@ -257,7 +260,10 @@ a3: End Sub
         Dim dictPropSetDef = New DictionaryPropertySetDefinitions(db)
 
 
-        Dim className As String = RXObject.GetClass(GetType(Line)).Name
+        Dim className1 As String = RXObject.GetClass(GetType(TinSurface)).Name
+        Dim className2 As String = RXObject.GetClass(GetType(Solid3d)).Name
+
+
         Dim propSetDef As PropertySetDefinition
 
 
@@ -267,23 +273,14 @@ a3: End Sub
                 propSetDef.Description = pset
                 Dim isStyle As Boolean = False
 
-
-
-
-
                 Dim appliedTo As New StringCollection
 
-
-
-                appliedTo.Add("*")
+                appliedTo.Add(className1)
+                appliedTo.Add(className2)
                 propSetDef.SetAppliesToFilter(appliedTo, isStyle)
 
                 dictPropSetDef.AddNewRecord(propSetDefName, propSetDef)
                 tr.AddNewlyCreatedDBObject(propSetDef, True)
-
-                'Add the new PropertySetDefinition to the PropertySetDefinition Dictionary
-                ' dictPropSetDef.AddNewRecord(propSetDefName, propSetDef)
-                'tr.AddNewlyCreatedDBObject(propSetDef, True)
 
 
 
@@ -297,7 +294,6 @@ a3: End Sub
             End If
 
             Dim propertyExists As Boolean = False
-
 
 
             For Each propDef As PropertyDefinition In propSetDef.Definitions
@@ -410,5 +406,9 @@ a3: End Sub
 
     Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBoxErrori.SelectedIndexChanged
 
+    End Sub
+
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs)
+        Process.Start(excelTemplate)
     End Sub
 End Class
