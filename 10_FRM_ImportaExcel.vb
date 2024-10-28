@@ -311,8 +311,37 @@ a3: End Sub
                 strProp.SubSetDatabaseDefaults(db)
                 strProp.Name = param
                 strProp.Description = param
-                strProp.DataType = Autodesk.Aec.PropertyData.DataType.Text
-                strProp.DefaultData = "xx"
+
+
+                Select Case tipo.ToUpper
+
+
+                    Case "TEXT"
+                        strProp.DataType = Autodesk.Aec.PropertyData.DataType.Text
+                        strProp.DefaultData = "xx"
+                    Case "REAL"
+                        strProp.DataType = Autodesk.Aec.PropertyData.DataType.Real
+                        strProp.DefaultData = 0
+                    Case "INTEGER"
+                        strProp.DataType = Autodesk.Aec.PropertyData.DataType.Integer
+                        strProp.DefaultData = 0
+                    Case "BOOLEAN"
+                        strProp.DataType = Autodesk.Aec.PropertyData.DataType.TrueFalse
+                        strProp.DefaultData = False
+
+                    Case Else
+
+                        strProp.DataType = Autodesk.Aec.PropertyData.DataType.Text
+                        strProp.DefaultData = "xx"
+
+                End Select
+
+
+
+
+
+
+
                 'Create a new Property and add it to the PropertySetDefinition
                 propSetDef.Definitions.Add(strProp)
                 propertyExists = False

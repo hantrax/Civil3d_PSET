@@ -1,8 +1,8 @@
 ﻿Imports System.Reflection
 
 
-<Assembly: AssemblyVersion("2025.0.0.3")>
-<Assembly: AssemblyFileVersion("2025.0.0.3")>
+<Assembly: AssemblyVersion("2025.0.0.4")>
+<Assembly: AssemblyFileVersion("2025.0.0.4")>
 
 Module Variabili
 
