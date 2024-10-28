@@ -56,7 +56,7 @@ Namespace Civil3d_PSET_2025
         ' * and double click on myCommands.resx
         '<CommandMethod("ProvaPSET", "MyCommand", "MyCommandLocal", CommandFlags.Modal)>
 
-        <CommandMethod("CreaPset11", CommandFlags.Session)>
+        <CommandMethod("CreaPset", CommandFlags.Session)>
         Public Sub Createset()
 
             Dim statoLIC As String = CtrlLic(File_LIC)
