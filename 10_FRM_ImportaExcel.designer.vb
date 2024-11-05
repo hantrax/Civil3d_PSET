@@ -54,7 +54,7 @@ Partial Class _00_FRM_OpenFile
         GroupBox1.Size = New System.Drawing.Size(846, 96)
         GroupBox1.TabIndex = 16
         GroupBox1.TabStop = False
-        GroupBox1.Text = "Importa PSET"
+        GroupBox1.Text = "PSET Import"
         ' 
         ' ButtonPDF
         ' 
@@ -63,7 +63,7 @@ Partial Class _00_FRM_OpenFile
         ButtonPDF.Name = "ButtonPDF"
         ButtonPDF.Size = New System.Drawing.Size(825, 33)
         ButtonPDF.TabIndex = 14
-        ButtonPDF.Text = "Seleziona File Excel..."
+        ButtonPDF.Text = "Select Excel file..."
         ButtonPDF.UseVisualStyleBackColor = True
         ' 
         ' Label_mail
@@ -102,7 +102,7 @@ Partial Class _00_FRM_OpenFile
         ButtonOk.Name = "ButtonOk"
         ButtonOk.Size = New System.Drawing.Size(181, 33)
         ButtonOk.TabIndex = 18
-        ButtonOk.Text = "Elabora"
+        ButtonOk.Text = "Go..."
         ButtonOk.UseVisualStyleBackColor = False
         ButtonOk.Visible = False
         ' 
@@ -113,7 +113,7 @@ Partial Class _00_FRM_OpenFile
         ButtonANN.Name = "ButtonANN"
         ButtonANN.Size = New System.Drawing.Size(125, 33)
         ButtonANN.TabIndex = 19
-        ButtonANN.Text = "Annulla"
+        ButtonANN.Text = "Cancell"
         ButtonANN.UseVisualStyleBackColor = True
         ' 
         ' ProgressBar1
@@ -141,7 +141,7 @@ Partial Class _00_FRM_OpenFile
         GroupBox2.Size = New System.Drawing.Size(825, 345)
         GroupBox2.TabIndex = 31
         GroupBox2.TabStop = False
-        GroupBox2.Text = "Parametri Duplicati - I dati sono stati copiati negli appunti"
+        GroupBox2.Text = "Duplicate Parameters in the Excel File...Data was copied to clipboard"
         ' 
         ' TextBox1
         ' 

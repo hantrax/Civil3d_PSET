@@ -114,7 +114,7 @@ Public Class _00_FRM_OpenFile
 
         Catch ex As System.Exception
 
-            MsgBox("Qualcosa non ha funzionato...", _caption)
+            MsgBox("Something was wrong...", _caption)
 
             workbook.Dispose()
 
@@ -142,7 +142,7 @@ Public Class _00_FRM_OpenFile
         Catch ex As AutoCAD.Runtime.Exception
 
 
-            MsgBox("Qualcosa non ha funzionato...", _caption)
+            MsgBox("Something was wrong...", _caption)
             myDWG.LockDocument.Dispose()
 
 
@@ -153,7 +153,7 @@ Public Class _00_FRM_OpenFile
 
 
 
-        MsgBox("Elaborazione Terminata!!!",, _caption)
+        MsgBox("Done!!!",, _caption)
 
         If lstErrore.Count > 0 Then
 
