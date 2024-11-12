@@ -20,6 +20,7 @@ Imports Autodesk.Aec.PropertyData
 Imports Autodesk.Aec.PropertyData.DatabaseServices
 Imports System.Collections.Specialized
 Imports ClosedXML.Excel
+Imports System.Globalization
 
 
 
@@ -58,6 +59,8 @@ Namespace Civil3d_PSET_2025
 
         <CommandMethod("CreaPset", CommandFlags.Session)>
         Public Sub Createset()
+
+           
 
             Dim statoLIC As String = CtrlLic(File_LIC)
 

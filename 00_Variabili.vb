@@ -1,8 +1,8 @@
 ﻿Imports System.Reflection
 
 
-<Assembly: AssemblyVersion("2025.0.0.6")>
-<Assembly: AssemblyFileVersion("2025.0.0.6")>
+<Assembly: AssemblyVersion("2025.0.0.7")>
+<Assembly: AssemblyFileVersion("2025.0.0.7")>
 
 Module Variabili
 
@@ -50,6 +50,8 @@ Module Variabili
         Public pSet As String
         Public NParam As String
         Public tipoParam As String
+        Public defText As String
+
 
     End Structure
 

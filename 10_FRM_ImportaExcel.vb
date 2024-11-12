@@ -19,6 +19,8 @@ Imports Application = Autodesk.AutoCAD.ApplicationServices.Application
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports System.Collections.Specialized
 Imports Autodesk.Civil.DatabaseServices
+Imports ClosedXML
+Imports System.Globalization
 
 Public Class _00_FRM_OpenFile
 
@@ -96,6 +98,17 @@ Public Class _00_FRM_OpenFile
                 End If
 
 
+                If xlworksheet_PSET.Cell(r, 4).HasFormula Then
+
+
+                    tmpParametro.defText = xlworksheet_PSET.Cell(r, 4).CachedValue
+                    If tmpParametro.defText = "" Then tmpParametro.defText = "NULL"
+                Else
+
+                    tmpParametro.defText = xlworksheet_PSET.Cell(r, 4).GetString
+                    If tmpParametro.defText = "" Then tmpParametro.defText = "NULL"
+                End If
+
                 lstParametri.Add(tmpParametro)
 
 
@@ -129,7 +142,7 @@ Public Class _00_FRM_OpenFile
             For Each parametro As ListaParametri In lstParametri
 
 
-                GetOrCreateMyPropertySetDefinition(db, parametro.pSet, parametro.NParam, parametro.tipoParam)
+                GetOrCreateMyPropertySetDefinition(db, parametro.pSet, parametro.NParam, parametro.tipoParam, parametro.defText)
 
                 ProgressBar1.PerformStep()
 
@@ -247,14 +260,13 @@ a3: End Sub
     End Sub
     Private Sub _00_FRM_SetCart_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Text = _caption
-
         lstErrore.Clear()
-
+        System.Windows.Forms.Application.CurrentCulture = New CultureInfo("EN-US")
 
 
 
     End Sub
-    Public Function GetOrCreateMyPropertySetDefinition(db As Database, pset As String, param As String, tipo As String) As ObjectId
+    Public Function GetOrCreateMyPropertySetDefinition(db As Database, pset As String, param As String, tipo As String, defTXT As String) As ObjectId
         Dim propSetDefId As ObjectId = Nothing
         Dim propSetDefName As String = pset
         Dim dictPropSetDef = New DictionaryPropertySetDefinitions(db)
@@ -318,21 +330,58 @@ a3: End Sub
 
                     Case "TEXT"
                         strProp.DataType = Autodesk.Aec.PropertyData.DataType.Text
-                        strProp.DefaultData = "xx"
+                        If defTXT <> "NULL" Then strProp.DefaultData = defTXT Else strProp.DefaultData = "XXXX"
+
                     Case "REAL"
+                        'Dim value = Double.Parse(dati.Substring(variabile.Value, 11), Globalization.NumberStyles.Any, Globalization.CultureInfo.InvariantCulture) ' mi estraggo il valore
                         strProp.DataType = Autodesk.Aec.PropertyData.DataType.Real
-                        strProp.DefaultData = 0
+                        If defTXT <> "NULL" Then
+                            Dim tmpDou As Double = Double.Parse(defTXT, Globalization.NumberStyles.Any, Globalization.CultureInfo.InvariantCulture)
+
+                            strProp.DefaultData = tmpDou
+                        Else
+                            strProp.DefaultData = 0
+                        End If
                     Case "INTEGER"
                         strProp.DataType = Autodesk.Aec.PropertyData.DataType.Integer
-                        strProp.DefaultData = 0
+
+                        If defTXT <> "NULL" Then
+                            Dim tmpINT As Integer = Integer.TryParse(defTXT, tmpINT)
+
+                            strProp.DefaultData = tmpINT
+                        Else
+                            strProp.DefaultData = 0
+                        End If
+
+
+
                     Case "BOOLEAN"
                         strProp.DataType = Autodesk.Aec.PropertyData.DataType.TrueFalse
-                        strProp.DefaultData = False
+
+
+                        If defTXT <> "NULL" Then
+                            If defTXT.ToUpper = "TRUE" Then strProp.DefaultData = True
+                            If defTXT.ToUpper = "FALSE" Then strProp.DefaultData = False
+                        Else
+
+                            strProp.DefaultData = False
+                        End If
+
+
 
                     Case Else
 
                         strProp.DataType = Autodesk.Aec.PropertyData.DataType.Text
-                        strProp.DefaultData = "xx"
+                        If defTXT IsNot Nothing Then
+
+                            strProp.DefaultData = defTXT
+
+                        Else
+
+                            strProp.DefaultData = "XXXXX
+"
+
+                        End If
 
                 End Select
 
