@@ -1,4 +1,6 @@
 ﻿Imports System.IO
+Imports Autodesk.AutoCAD.DatabaseServices
+Imports Autodesk.Civil.DatabaseServices
 
 
 Module ControlloLIC
@@ -133,6 +135,7 @@ Module ControlloLIC
 
 a100:   Return TipoLIC
     End Function
+
 
 
 

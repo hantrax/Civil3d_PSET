@@ -1,8 +1,9 @@
 ﻿Imports System.Reflection
+Imports Autodesk.AutoCAD.DatabaseServices
 
 
-<Assembly: AssemblyVersion("2025.0.0.7")>
-<Assembly: AssemblyFileVersion("2025.0.0.7")>
+<Assembly: AssemblyVersion("2025.0.0.8")>
+<Assembly: AssemblyFileVersion("2025.0.0.8")>
 
 Module Variabili
 
@@ -12,7 +13,7 @@ Module Variabili
     Public nomeTXT As String = ""
     Public password As String = "!BatChEtrAnsMIT2023*!"
     Public AssVersion As String = Assembly.GetExecutingAssembly().GetName().Version.ToString()
-    Public _caption As String = "Importa PSET da Excel - " & AssVersion
+    Public _caption As String = "PSET from Excel - " & AssVersion
     Public strMail As String = ""
     Public strMail1 As String = "stefano.carta74@gmail.com"
     Public strMail2 As String = "stefano.carta@pini.group"
@@ -32,6 +33,7 @@ Module Variabili
     Public Path_AssemblyTXT As String = "C:\ProgramData\" & NomeProgr & "\"
 
     Public excelTemplate As String = Path_Assembly & "\pset_template.xlsx"
+    Public ParamTemplate As String = Path_Assembly & "\param_template.xlsx"
 
     Public strPath As String = ""
     Public nomeCart As String = ""
@@ -54,6 +56,14 @@ Module Variabili
 
 
     End Structure
+    Public Structure ParametriVal
+        Public HANDLEOBJ As Handle
+        Public PsetName As String
+        Public NParam As String
+        Public tipoParam As String
+        Public textVal As Object
+        Public autoParam As Boolean
 
+    End Structure
 
 End Module

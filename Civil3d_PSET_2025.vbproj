@@ -26,9 +26,15 @@
       </Reference>
       <Reference Include="AecPropDataMgd">
         <HintPath>C:\Program Files\Autodesk\AutoCAD 2025\ACA\AecPropDataMgd.dll</HintPath>
+        <Private>False</Private>
       </Reference>
     </ItemGroup>
     <ItemGroup>
+      <Compile Update="05_Surface.Designer.vb">
+        <DependentUpon>05_Surface.resx</DependentUpon>
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+      </Compile>
       <Compile Update="My Project\Resources.Designer.vb">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
@@ -46,6 +52,11 @@
       </Compile>
     </ItemGroup>
     <ItemGroup>
+      <EmbeddedResource Update="05_Surface.resx">
+        <CustomToolNamespace>My.Resources</CustomToolNamespace>
+        <LastGenOutput>05_Surface.Designer.vb</LastGenOutput>
+        <Generator>ResXFileCodeGenerator</Generator>
+      </EmbeddedResource>
       <EmbeddedResource Update="My Project\Resources.resx">
         <CustomToolNamespace>My.Resources</CustomToolNamespace>
         <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

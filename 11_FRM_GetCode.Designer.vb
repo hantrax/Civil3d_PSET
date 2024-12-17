@@ -22,50 +22,54 @@ Partial Class FRM_Get_Code
     'Non modificarla mediante l'editor del codice.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.SuspendLayout()
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(211, 139)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 5
-        Me.Button1.Text = "Ok"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 16)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(388, 13)
-        Me.Label1.TabIndex = 4
-        Me.Label1.Text = "Inviare una mail a stefano.carta74@gmail.com con il seguente codice di richiesta"
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Location = New System.Drawing.Point(12, 41)
-        Me.TextBox1.Multiline = True
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.ReadOnly = True
-        Me.TextBox1.Size = New System.Drawing.Size(465, 79)
-        Me.TextBox1.TabIndex = 3
-        '
-        'FRM_Get_Code
-        '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(490, 172)
-        Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.TextBox1)
-        Me.Name = "FRM_Get_Code"
-        Me.Text = "Codice di Richiesta"
-        Me.ResumeLayout(False)
-        Me.PerformLayout()
+        Button1 = New System.Windows.Forms.Button()
+        Label1 = New System.Windows.Forms.Label()
+        TextBox1 = New System.Windows.Forms.TextBox()
+        SuspendLayout()
+        ' 
+        ' Button1
+        ' 
+        Button1.Location = New System.Drawing.Point(246, 160)
+        Button1.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Button1.Name = "Button1"
+        Button1.Size = New System.Drawing.Size(88, 27)
+        Button1.TabIndex = 5
+        Button1.Text = "Ok"
+        Button1.UseVisualStyleBackColor = True
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Location = New System.Drawing.Point(14, 18)
+        Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Label1.Name = "Label1"
+        Label1.Size = New System.Drawing.Size(432, 15)
+        Label1.TabIndex = 4
+        Label1.Text = "Inviare una mail a stefano.carta74@gmail.com con il seguente codice di richiesta"
+        ' 
+        ' TextBox1
+        ' 
+        TextBox1.Location = New System.Drawing.Point(14, 47)
+        TextBox1.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        TextBox1.Multiline = True
+        TextBox1.Name = "TextBox1"
+        TextBox1.ReadOnly = True
+        TextBox1.Size = New System.Drawing.Size(542, 91)
+        TextBox1.TabIndex = 3
+        ' 
+        ' FRM_Get_Code
+        ' 
+        AutoScaleDimensions = New System.Drawing.SizeF(7F, 15F)
+        AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        ClientSize = New System.Drawing.Size(572, 198)
+        Controls.Add(Button1)
+        Controls.Add(Label1)
+        Controls.Add(TextBox1)
+        Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Name = "FRM_Get_Code"
+        Text = "Codice di Richiesta"
+        ResumeLayout(False)
+        PerformLayout()
 
     End Sub
 
