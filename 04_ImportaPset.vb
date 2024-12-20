@@ -101,9 +101,9 @@ Namespace Civil3d_PSET_2025
             End Select
 
             '****inizio programma*****************
-a000:       Dim strPath As String
 
-            Autodesk.AutoCAD.ApplicationServices.Application.ShowModalDialog(FrmImport)
+
+a000:       Autodesk.AutoCAD.ApplicationServices.Application.ShowModalDialog(FrmImport)
 
 
             If FrmImport.DialogResult = System.Windows.Forms.DialogResult.Cancel Then

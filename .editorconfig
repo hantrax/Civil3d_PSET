@@ -1,0 +1,4 @@
+﻿[*.vb]
+
+# CA1416: Convalida compatibilità della piattaforma
+dotnet_diagnostic.CA1416.severity = silent

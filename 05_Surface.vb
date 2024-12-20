@@ -77,11 +77,11 @@ Public Class SurfaceCant
 
             End Select
 
-            '****inizio programma*****************
-a000:       Dim strPath As String
+        '****inizio programma*****************
 
-            Dim db As Database = HostApplicationServices.WorkingDatabase
-            Dim ed As Editor = ApplicationServices.Application.DocumentManager.MdiActiveDocument.Editor
+
+a000:   Dim db As Database = HostApplicationServices.WorkingDatabase
+        Dim ed As Editor = ApplicationServices.Application.DocumentManager.MdiActiveDocument.Editor
             Dim myDWG As ApplicationServices.Document
             Dim LockMode As Boolean = False
             myDWG = ApplicationServices.Application.DocumentManager.MdiActiveDocument

@@ -19,9 +19,18 @@ Imports ObjectId = Autodesk.AutoCAD.DatabaseServices.ObjectId
 Imports Autodesk.Aec.PropertyData
 Imports Autodesk.Aec.PropertyData.DatabaseServices
 Imports System.Collections.Specialized
+Imports ClosedXML.Excel.XLWorkbook
+Imports ClosedXML
 Imports ClosedXML.Excel
 Imports System.Globalization
 
+Imports DocumentFormat.OpenXml.Packaging
+Imports System.IO.Packaging
+Imports DocumentFormat.OpenXml.Spreadsheet
+Imports DocumentFormat.OpenXml
+Imports Cell = DocumentFormat.OpenXml.Spreadsheet.Cell
+Imports Row = DocumentFormat.OpenXml.Spreadsheet.Row
+Imports DocumentFormat.OpenXml.VariantTypes
 
 
 
@@ -100,9 +109,14 @@ Namespace Civil3d_PSET_2025
             End Select
 
             '****inizio programma*****************
-a000:       Dim strPath As String
 
-            Autodesk.AutoCAD.ApplicationServices.Application.ShowModalDialog(FrmExport)
+
+a000:       Autodesk.AutoCAD.ApplicationServices.Application.ShowModalDialog(FrmExport)
+
+
+
+
+
 
 
             If FrmExport.DialogResult = System.Windows.Forms.DialogResult.Cancel Then
@@ -159,9 +173,9 @@ a200:   End Sub
             End Select
 
             '****inizio programma*****************
-a000:       Dim strPath As String
 
-            Autodesk.AutoCAD.ApplicationServices.Application.ShowModalDialog(FrmImport)
+
+a000:       Autodesk.AutoCAD.ApplicationServices.Application.ShowModalDialog(FrmImport)
 
 
             If FrmImport.DialogResult = System.Windows.Forms.DialogResult.Cancel Then

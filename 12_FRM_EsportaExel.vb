@@ -7,7 +7,7 @@ Imports System.Windows.Forms
 Imports Autodesk.Aec.PropertyData.DatabaseServices
 Imports ClosedXML.Excel
 Imports Application = Autodesk.AutoCAD.ApplicationServices.Application
-Imports Autodesk.Civil.DatabaseServices
+'Imports Autodesk.Civil.DatabaseServicesz
 Imports ClosedXML
 Imports System.Globalization
 Imports Exception = Autodesk.AutoCAD.Runtime.Exception
@@ -15,6 +15,16 @@ Imports System.IO
 Imports Autodesk.Aec.DatabaseServices
 Imports Autodesk.Aec.PropertyData
 Imports ObjectId = Autodesk.AutoCAD.DatabaseServices.ObjectId
+Imports DocumentFormat.OpenXml
+Imports ClosedXML.Excel.XLWorkbook
+Imports System.Windows.Controls
+Imports Autodesk
+Imports System.Windows.Input
+Imports Autodesk.AutoCAD.Geometry
+Imports Autodesk.AutoCAD.Runtime
+Imports Autodesk.Civil.ApplicationServices
+Imports Autodesk.Civil.DatabaseServices
+
 
 Public Class Form_EsportaFile
 
@@ -100,7 +110,7 @@ Public Class Form_EsportaFile
 
             ' Assign the filter criteria to a SelectionFilter object
             Dim acSelFtr As SelectionFilter = New SelectionFilter(acTypValAr)
-            Dim myPEO As New EditorInput.PromptEntityOptions("Seleziona gli oggetti da esportare ,,," & vbLf & "Invio per terminare.." & vbLf) ' seleziona linee di sezione
+            Dim myPEO As New EditorInput.PromptEntityOptions("Seleziona gli oggetti da esportare...." & vbLf & "Invio per terminare.." & vbLf) ' seleziona linee di sezione
 
             acSSPrompt = ed.GetSelection()
 
@@ -236,7 +246,11 @@ Public Class Form_EsportaFile
                         'xlworksheet_Param.Column(1).Style.Fill.BackgroundColor = XLColor.LightBlue
                         xlworksheet_Param.Cell(row, 2).Value = nomeLayer.ToUpper
                         xlworksheet_Param.Cell(row, 3).Value = etyp.ToUpper
-                        xlworksheet_Param.Cell(1, col).Value = tmpParamEX.NParam.ToString & Environment.NewLine & tmpParamEX.PsetName.ToString & Environment.NewLine & tmpParamEX.tipoParam.ToString
+                        xlworksheet_Param.Cell(1, col).Value = tmpParamEX.NParam.ToString & Environment.NewLine & tmpParamEX.PsetName.ToString & Environment.NewLine & tmpParamEX.tipoParam.ToString & Environment.NewLine & tmpParamEX.autoParam.ToString
+
+                        If Not listaColAutom.ContainsKey(etyp.ToUpper & "|" & 1) Then listaColAutom.Add(etyp.ToUpper & "|" & 1, 1)
+                        If Not listaColAutom.ContainsKey(etyp.ToUpper & "|" & 2) Then listaColAutom.Add(etyp.ToUpper & "|" & 2, 2)
+                        If Not listaColAutom.ContainsKey(etyp.ToUpper & "|" & 3) Then listaColAutom.Add(etyp.ToUpper & "|" & 3, 3)
 
                         If tmpParamEX.textVal.ToString = "NULL" Then
 
@@ -249,14 +263,19 @@ Public Class Form_EsportaFile
 
                         If tmpParamEX.autoParam = True Then
 
-                            If Not listaColAutom.ContainsKey(etyp.ToUpper) Then
-                                listaColAutom.Add(etyp.ToUpper, col) ' creo la chiave
+                            'If Not listaColAutom.ContainsKey(etyp.ToUpper) Then
+
+
+                            If Not listaColAutom.ContainsKey(etyp.ToUpper & "|" & col) Then
+                                listaColAutom.Add(etyp.ToUpper & "|" & col, col) ' creo la chiave
                             End If
+
+                            'End If
 
 
 
                         End If
-                        col += 1
+                            col += 1
                     Next
                     'row += 1
 
@@ -273,11 +292,15 @@ a300:           Next
 
 
 
+
             For Each Colonna In listaColAutom
 
                 Dim col As Integer = Colonna.Value
 
-                workbook.Worksheet(Colonna.Key).Column(col).Style.Fill.BackgroundColor = XLColor.LightBlue
+                Dim Foglio As String() = Colonna.Key.Split("|")
+
+
+                workbook.Worksheet(Foglio(0)).Column(col).Style.Fill.BackgroundColor = XLColor.LightBlue
 
             Next
 

@@ -74,19 +74,54 @@ Public Class Form_ImportaFile
 
         Dim xlworksheet_Param = workbook.Worksheet("CivilPARAM")
         Dim lstParam As New List(Of String)
+        Dim lstParamSource As New List(Of ParametriVal)
+
+
 
         Try
 
-            Dim lastRow As Integer = xlworksheet_Param.LastRowUsed().RowNumber()
-            Dim lastCol As Integer = xlworksheet_Param.LastColumnUsed().ColumnNumber
+
+            For Each worksheet As IXLWorksheet In workbook.Worksheets
+
+
+                Dim lastRow As Integer = worksheet.LastRowUsed().RowNumber()
+                Dim lastCol As Integer = worksheet.LastColumnUsed().ColumnNumber
+
+                Dim tmpParam As New ParametriVal
+                For r = 1 To lastRow
+
+                    tmpParam.HANDLEOBJ = worksheet.Cell(1, 1).Value.to
+
+
+                    For c = 1 To lastCol
+
+
+
+
+                    Next
+
+
+
+
+                Next
+
+
+
+
+            Next
+
+
+
+
 
             ProgressBar1.Minimum = 0
+
+
+
 
             For i = 1 To lastCol
 
                 Dim tmpPar As String = xlworksheet_Param.Cell(1, i).Value
-
-
 
                 lstParam.Add(xlworksheet_Param.Cell(1, i).Value)
 
@@ -107,6 +142,10 @@ Public Class Form_ImportaFile
     End Sub
 
     Private Sub ButtonANN_Click(sender As Object, e As EventArgs) Handles ButtonANN.Click
+
+    End Sub
+
+    Private Sub Form_ImportaFile_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
 End Class
