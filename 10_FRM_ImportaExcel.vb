@@ -41,6 +41,13 @@ Public Class _00_FRM_OpenFile
     End Sub
 
     Private Sub ButtonOk_Click(sender As Object, e As EventArgs) Handles ButtonOk.Click
+
+        'Text
+        'REAL
+        'Integer
+        'Boolean
+
+
         Dim doc As Document = Application.DocumentManager.MdiActiveDocument
 
         Dim db As Database = doc.Database

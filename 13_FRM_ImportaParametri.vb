@@ -1,26 +1,29 @@
-﻿Imports System.Windows.Forms
+﻿Imports Autodesk.AutoCAD
 Imports Autodesk.AutoCAD.DatabaseServices
-Imports ClosedXML.Excel
-Imports Autodesk.AutoCAD.Runtime
-Imports Autodesk.AutoCAD
 Imports Autodesk.AutoCAD.ApplicationServices
-Imports Autodesk.AutoCAD.Geometry
-Imports Autodesk.AutoCAD.DatabaseServices.Region
 Imports Autodesk.AutoCAD.EditorInput
 Imports System
-Imports System.Math
-Imports System.Type
-Imports Autodesk.AutoCAD.Colors
-Imports System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar
-Imports System.Windows.Controls
-Imports Autodesk
+Imports System.Windows.Forms
 Imports Autodesk.Aec.PropertyData.DatabaseServices
+Imports ClosedXML.Excel
 Imports Application = Autodesk.AutoCAD.ApplicationServices.Application
-Imports System.Windows.Forms.VisualStyles.VisualStyleElement
-Imports System.Collections.Specialized
-Imports Autodesk.Civil.DatabaseServices
+'Imports Autodesk.Civil.DatabaseServicesz
 Imports ClosedXML
 Imports System.Globalization
+Imports Exception = Autodesk.AutoCAD.Runtime.Exception
+Imports System.IO
+Imports Autodesk.Aec.DatabaseServices
+Imports Autodesk.Aec.PropertyData
+Imports ObjectId = Autodesk.AutoCAD.DatabaseServices.ObjectId
+Imports DocumentFormat.OpenXml
+Imports ClosedXML.Excel.XLWorkbook
+Imports System.Windows.Controls
+Imports Autodesk
+Imports System.Windows.Input
+Imports Autodesk.AutoCAD.Geometry
+Imports Autodesk.AutoCAD.Runtime
+Imports Autodesk.Civil.ApplicationServices
+Imports Autodesk.Civil.DatabaseServices
 
 Public Class Form_ImportaFile
     Private Sub ButtonPDF_Click(sender As Object, e As EventArgs) Handles ButtonPDF.Click
@@ -60,6 +63,13 @@ Public Class Form_ImportaFile
     End Sub
 
     Private Sub ButtonOk_Click(sender As Object, e As EventArgs) Handles ButtonOk.Click
+
+        'Text
+        'REAL
+        'Integer
+        'Boolean
+
+
         Dim doc As Document = Application.DocumentManager.MdiActiveDocument
 
         Dim db As Database = doc.Database
@@ -78,67 +88,108 @@ Public Class Form_ImportaFile
 
 
 
-        Try
+        Using tr As Transaction = Application.DocumentManager.MdiActiveDocument.Database.TransactionManager.StartTransaction()
+            Try
+                For Each worksheet As IXLWorksheet In workbook.Worksheets
 
 
-            For Each worksheet As IXLWorksheet In workbook.Worksheets
+                    Dim lastRow As Integer = worksheet.LastRowUsed().RowNumber()
+                    Dim lastCol As Integer = worksheet.LastColumnUsed().ColumnNumber
+
+                    Dim tmpParam As New ParametriVal
+                    For r = 2 To lastRow
+
+                        For c = 1 To lastCol
+                            Dim pr As String = worksheet.Cell(1, 1).Value
+                            Dim ln As Long = Convert.ToInt64(pr, 16)
+
+                            ' Not create a Handle from the long integer
+
+                            Dim hn As Handle = New Handle(ln)
+
+                            ' And attempt to get an ObjectId for the Handle
 
 
-                Dim lastRow As Integer = worksheet.LastRowUsed().RowNumber()
-                Dim lastCol As Integer = worksheet.LastColumnUsed().ColumnNumber
+                            tmpParam.HANDLEOBJ = hn
 
-                Dim tmpParam As New ParametriVal
-                For r = 1 To lastRow
+                            Dim tmpHead As String = worksheet.Cell(1, c).Value
 
-                    tmpParam.HANDLEOBJ = worksheet.Cell(1, 1).Value.to
+                            Dim HeadCell As String() = tmpHead.Split("|")
+
+                            tmpParam.NParam = HeadCell(0)
+                            tmpParam.PsetName = HeadCell(1)
+                            tmpParam.tipoParam = HeadCell(2)
+                            tmpParam.autoParam = HeadCell(3)
+                            tmpParam.textVal = worksheet.Cell(r, c).Value
 
 
-                    For c = 1 To lastCol
+                        Next
+
+                        lstParamSource.Add(tmpParam)
+
+                    Next
+
+                Next
 
 
+                For Each obj In lstParamSource
+
+                    Dim id As ObjectId = db.GetObjectId(False, obj.HANDLEOBJ, 0)
+                    Dim dbObject As Autodesk.AutoCAD.DatabaseServices.DBObject = tr.GetObject(id, OpenMode.ForRead)
+                    Dim objCur As Autodesk.Aec.DatabaseServices.DBObject = tr.GetObject(id, OpenMode.ForWrite)
+
+
+                    Dim ids As Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection = PropertyDataServices.GetPropertySetDefinitionsUsed(DBObject)
+
+
+                    For Each propSetDefId As ObjectId In ids
+                        Dim propSetDef As PropertySetDefinition = tr.GetObject(propSetDefId, OpenMode.ForWrite)
+
+                        Dim propSetId As ObjectId = PropertyDataServices.GetPropertySet(dbObject, propSetDefId)
+                        Dim propSet As PropertySet = tr.GetObject(propSetId, OpenMode.ForWrite)
+
+                        For Each propDef As PropertyDefinition In propSetDef.Definitions
+
+                            If Not propDef.Automatic Then
+                                If propSet.PropertySetDefinitionName.ToUpper = obj.NParam.ToUpper Then
+
+                                    If obj.tipoParam.ToUpper = "TEXT" Then propSet.SetAt(propSet.PropertyNameToId(propDef.Name), obj.textVal.ToString)
+                                    If obj.tipoParam.ToUpper = "REAL" Then propSet.SetAt(propSet.PropertyNameToId(propDef.Name), obj.textVal)
+                                    If obj.tipoParam.ToUpper = "BOOLEAN" Then propSet.SetAt(propSet.PropertyNameToId(propDef.Name), obj.textVal)
+                                    If obj.tipoParam.ToUpper = "INTEGER" Then propSet.SetAt(propSet.PropertyNameToId(propDef.Name), obj.textVal)
+
+                                End If
+                            End If
+
+
+                        Next
+
+                        ' End If
 
 
                     Next
 
 
 
-
                 Next
 
 
-
-
-            Next
-
+                ProgressBar1.Minimum = 0
 
 
 
+            Catch
 
-            ProgressBar1.Minimum = 0
-
-
-
-
-            For i = 1 To lastCol
-
-                Dim tmpPar As String = xlworksheet_Param.Cell(1, i).Value
-
-                lstParam.Add(xlworksheet_Param.Cell(1, i).Value)
+            End Try
 
 
-            Next
+            tr.Commit()
 
-
-            For i = 2 To lastRow
+        End Using
 
 
 
 
-            Next
-
-        Catch
-
-        End Try
     End Sub
 
     Private Sub ButtonANN_Click(sender As Object, e As EventArgs) Handles ButtonANN.Click
