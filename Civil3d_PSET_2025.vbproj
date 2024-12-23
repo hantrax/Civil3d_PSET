@@ -10,8 +10,7 @@
       <UseWindowsForms>true</UseWindowsForms>
       <UseWPF>true</UseWPF>
       <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
-      <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-      <ImportedNamespaces>ClosedXML=False,ClosedXML.Attributes=False,ClosedXML.Excel=False,ClosedXML.Excel.CalcEngine=False,ClosedXML.Excel.CalcEngine.Functions=False,ClosedXML.Excel.Drawings=False,ClosedXML.Excel.Exceptions=False,ClosedXML.Excel.XLWorkbook=False,ClosedXML.Graphics=False,ClosedXML.Parser=False,DocumentFormat.OpenXml=False,DocumentFormat.OpenXml.AdditionalCharacteristics=False,DocumentFormat.OpenXml.Bibliography=False,DocumentFormat.OpenXml.CustomProperties=False,DocumentFormat.OpenXml.Office.Excel=False,ExcelNumberFormat=False,RBush=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,Civil3d_PSET_2025=True</ImportedNamespaces>
+      <ImportedNamespaces>ClosedXML=False,ClosedXML.Attributes=False,ClosedXML.Excel=False,ClosedXML.Excel.CalcEngine=False,ClosedXML.Excel.CalcEngine.Functions=False,ClosedXML.Excel.Drawings=False,ClosedXML.Excel.Exceptions=False,ClosedXML.Excel.XLWorkbook=False,ClosedXML.Graphics=False,ClosedXML.Parser=False,ExcelNumberFormat=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,Civil3d_PSET_2025=True</ImportedNamespaces>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -24,7 +23,7 @@
     <ItemGroup>
         <PackageReference Include="AutoCAD.NET" Version="25.0.1" />
         <PackageReference Include="ClosedXML" Version="0.102.3" />
-        <PackageReference Include="DocumentFormat.OpenXml" Version="3.2.0" />
+        <PackageReference Include="DocumentFormat.OpenXml" Version="3.0.0" />
         <PackageReference Include="Speckle.Civil3D.API" Version="2025.0.0" />
         <PackageReference Include="System.IO.Packaging" Version="9.0.0" />
         <PackageReference Include="System.Management" Version="9.0.0" />
@@ -98,12 +97,6 @@
       <Import Include="ClosedXML.Excel.XLWorkbook" />
       <Import Include="ClosedXML.Graphics" />
       <Import Include="ClosedXML.Parser" />
-      <Import Include="DocumentFormat.OpenXml" />
-      <Import Include="DocumentFormat.OpenXml.AdditionalCharacteristics" />
-      <Import Include="DocumentFormat.OpenXml.Bibliography" />
-      <Import Include="DocumentFormat.OpenXml.CustomProperties" />
-      <Import Include="DocumentFormat.OpenXml.Office.Excel" />
       <Import Include="ExcelNumberFormat" />
-      <Import Include="RBush" />
     </ItemGroup>
 </Project>

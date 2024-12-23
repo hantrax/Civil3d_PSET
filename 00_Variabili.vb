@@ -14,6 +14,9 @@ Module Variabili
     Public password As String = "!BatChEtrAnsMIT2023*!"
     Public AssVersion As String = Assembly.GetExecutingAssembly().GetName().Version.ToString()
     Public _caption As String = "PSET from Excel - " & AssVersion
+    Public _captionImp As String = "Import Parameters Values from Excel - " & AssVersion
+    Public _captionEsp As String = "Export Parameters Values to Excel - " & AssVersion
+
     Public strMail As String = ""
     Public strMail1 As String = "stefano.carta74@gmail.com"
     Public strMail2 As String = "stefano.carta@pini.group"
@@ -63,6 +66,7 @@ Module Variabili
         Public tipoParam As String
         Public textVal As Object
         Public autoParam As Boolean
+        Public objLayer As String
 
     End Structure
 

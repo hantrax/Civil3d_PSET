@@ -24,12 +24,13 @@ Imports Autodesk.AutoCAD.Geometry
 Imports Autodesk.AutoCAD.Runtime
 Imports Autodesk.Civil.ApplicationServices
 Imports Autodesk.Civil.DatabaseServices
+Imports DocumentFormat.OpenXml.Drawing
 
 
 Public Class Form_EsportaFile
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Me.Text = _caption
+        Me.Text = _captionEsp
 
 
     End Sub
@@ -147,7 +148,8 @@ Public Class Form_EsportaFile
 
                 For Each Foglio In lstTipo
 
-                    workbook.Worksheets.Add(Foglio)
+                    xlworksheet_Param.CopyTo(Foglio)
+                    'workbook.Worksheets.Add(Foglio)
 
 
 
@@ -249,7 +251,7 @@ Public Class Form_EsportaFile
                         xlworksheet_Param.Cell(1, col).Value = tmpParamEX.NParam.ToString & Environment.NewLine & tmpParamEX.PsetName.ToString & Environment.NewLine & tmpParamEX.tipoParam.ToString & Environment.NewLine & tmpParamEX.autoParam.ToString
 
                         If Not listaColAutom.ContainsKey(etyp.ToUpper & "|" & 1) Then listaColAutom.Add(etyp.ToUpper & "|" & 1, 1)
-                        If Not listaColAutom.ContainsKey(etyp.ToUpper & "|" & 2) Then listaColAutom.Add(etyp.ToUpper & "|" & 2, 2)
+                        'If Not listaColAutom.ContainsKey(etyp.ToUpper & "|" & 2) Then listaColAutom.Add(etyp.ToUpper & "|" & 2, 2)
                         If Not listaColAutom.ContainsKey(etyp.ToUpper & "|" & 3) Then listaColAutom.Add(etyp.ToUpper & "|" & 3, 3)
 
                         If tmpParamEX.textVal.ToString = "NULL" Then
@@ -275,7 +277,7 @@ Public Class Form_EsportaFile
 
 
                         End If
-                            col += 1
+                        col += 1
                     Next
                     'row += 1
 
@@ -293,18 +295,49 @@ a300:           Next
 
 
 
+
+
+
+            For Each Foglio In lstTipo
+
+                Dim lastCol As Long = workbook.Worksheet(Foglio).LastColumnUsed().ColumnNumber
+                Dim lastRow As Integer = workbook.Worksheet(Foglio).LastRowUsed().RowNumber()
+
+
+
+                Dim strCol As String = Civil3d_PSET_2025.Esportaparametri.ConvertToLetter(lastCol)
+
+                Dim tmpRangeHead As String = "A1:" & strCol & "1"
+                workbook.Worksheet(Foglio).Range(tmpRangeHead).Style.Fill.BackgroundColor = XLColor.PastelOrange
+                workbook.Worksheet(Foglio).Range(tmpRangeHead).Style.Border.BottomBorder = XLBorderStyleValues.Thin
+
+                Dim tmpRange As String = "A1:" & strCol & lastRow & ""
+
+                workbook.Worksheet(Foglio).Range(tmpRange).Style.Border.RightBorder = XLBorderStyleValues.Thin
+
+
+
+
+            Next
+
             For Each Colonna In listaColAutom
 
                 Dim col As Integer = Colonna.Value
 
                 Dim Foglio As String() = Colonna.Key.Split("|")
 
+                Dim strCol As String = Civil3d_PSET_2025.Esportaparametri.ConvertToLetter(col)
+                Dim lastRow As Integer = workbook.Worksheet(Foglio(0)).LastRowUsed().RowNumber()
 
-                workbook.Worksheet(Foglio(0)).Column(col).Style.Fill.BackgroundColor = XLColor.LightBlue
+                Dim tmpRange As String = strCol & "1:" & strCol & lastRow & ""
+
+                workbook.Worksheet(Foglio(0)).Range(tmpRange).Style.Fill.BackgroundColor = XLColor.LightBlue
+
+                ' workbook.Worksheet(Foglio(0)).Column(col).Style.Fill.BackgroundColor = XLColor.LightBlue
 
             Next
 
-
+            workbook.Worksheet("CivilPARAM").Delete()
             workbook.Save()
             workbook.Dispose()
 
@@ -314,7 +347,7 @@ a300:           Next
         End Using
 
 
-        MsgBox("File Exported succesfully....")
+        MsgBox("File Exported succesfully....", _captionEsp)
 
         Me.Close()
 

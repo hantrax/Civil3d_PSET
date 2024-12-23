@@ -82,7 +82,7 @@ Public Class Form_ImportaFile
 
         Dim workbook = New XLWorkbook(strNomeFile)
 
-        Dim xlworksheet_Param = workbook.Worksheet("CivilPARAM")
+        'Dim xlworksheet_Param = workbook.Worksheet("CivilPARAM")
         Dim lstParam As New List(Of String)
         Dim lstParamSource As New List(Of ParametriVal)
 
@@ -91,7 +91,7 @@ Public Class Form_ImportaFile
         Using tr As Transaction = Application.DocumentManager.MdiActiveDocument.Database.TransactionManager.StartTransaction()
             Try
                 For Each worksheet As IXLWorksheet In workbook.Worksheets
-
+                    If worksheet.Name.Contains("Civil") Then Continue For
 
                     Dim lastRow As Integer = worksheet.LastRowUsed().RowNumber()
                     Dim lastCol As Integer = worksheet.LastColumnUsed().ColumnNumber
@@ -100,7 +100,12 @@ Public Class Form_ImportaFile
                     For r = 2 To lastRow
 
                         For c = 1 To lastCol
-                            Dim pr As String = worksheet.Cell(1, 1).Value
+                            Dim pr As String = worksheet.Cell(r, 1).Value
+
+
+
+
+
                             Dim ln As Long = Convert.ToInt64(pr, 16)
 
                             ' Not create a Handle from the long integer
@@ -110,53 +115,114 @@ Public Class Form_ImportaFile
                             ' And attempt to get an ObjectId for the Handle
 
 
-                            tmpParam.HANDLEOBJ = hn
+                            tmpParam.HANDLEOBJ = Civil3d_PSET_2025.Esportaparametri.StringToHandle(pr)
 
                             Dim tmpHead As String = worksheet.Cell(1, c).Value
 
-                            Dim HeadCell As String() = tmpHead.Split("|")
+                            Dim HeadCell As String() = tmpHead.Split(vbLf)
 
                             tmpParam.NParam = HeadCell(0)
-                            tmpParam.PsetName = HeadCell(1)
-                            tmpParam.tipoParam = HeadCell(2)
-                            tmpParam.autoParam = HeadCell(3)
+                            If HeadCell.Count > 1 Then
+                                tmpParam.PsetName = HeadCell(1)
+                                tmpParam.tipoParam = HeadCell(2)
+                                tmpParam.autoParam = HeadCell(3)
+                            Else
+
+                                tmpParam.tipoParam = "Text"
+                                tmpParam.autoParam = True
+
+
+                            End If
+
                             tmpParam.textVal = worksheet.Cell(r, c).Value
 
+                            lstParamSource.Add(tmpParam)
 
                         Next
 
-                        lstParamSource.Add(tmpParam)
+
 
                     Next
 
                 Next
-
+                workbook.Dispose()
 
                 For Each obj In lstParamSource
 
-                    Dim id As ObjectId = db.GetObjectId(False, obj.HANDLEOBJ, 0)
-                    Dim dbObject As Autodesk.AutoCAD.DatabaseServices.DBObject = tr.GetObject(id, OpenMode.ForRead)
-                    Dim objCur As Autodesk.Aec.DatabaseServices.DBObject = tr.GetObject(id, OpenMode.ForWrite)
+
+                    'HANDLE	LAYER	OBJ TYPE
+
+                    If obj.NParam.ToUpper = "HANDLE" Then Continue For
+
+                    If obj.NParam.ToUpper = "OBJ TYPE" Then Continue For
 
 
-                    Dim ids As Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection = PropertyDataServices.GetPropertySetDefinitionsUsed(DBObject)
+                    'Dim id As ObjectId = db.GetObjectId(False, obj.HANDLEOBJ, 0)
+                    Dim id As ObjectId = Civil3d_PSET_2025.Esportaparametri.HandleToObjectId(db, obj.HANDLEOBJ)
+                    Dim dbObject1 As Autodesk.AutoCAD.DatabaseServices.DBObject = tr.GetObject(id, OpenMode.ForWrite)
+
+                    Dim myAcadEnt As DatabaseServices.Entity
+
+                    myAcadEnt = dbObject1.ObjectId.GetObject(DatabaseServices.OpenMode.ForWrite)
+                    Dim etyp As String = myAcadEnt.GetRXClass.DxfName.ToUpper
+
+                    Dim NomeLayer As String = myAcadEnt.Layer
+
+                    If obj.NParam.ToUpper = "LAYER" Then
+
+                        If NomeLayer.ToUpper <> obj.textVal.ToString.ToUpper Then
+
+                            Civil3d_PSET_2025.Esportaparametri.AddLayer(obj.textVal.ToString, 9999)
+
+                            myAcadEnt.Layer = obj.textVal.ToString
+
+                        End If
+
+
+
+                    End If
+
+
+
+
+                    'Dim objCur As Autodesk.Aec.DatabaseServices.DBObject = tr.GetObject(id, OpenMode.ForWrite)
+
+
+                    Dim ids As Autodesk.AutoCAD.DatabaseServices.ObjectIdCollection = PropertyDataServices.GetPropertySetDefinitionsUsed(dbObject1)
 
 
                     For Each propSetDefId As ObjectId In ids
                         Dim propSetDef As PropertySetDefinition = tr.GetObject(propSetDefId, OpenMode.ForWrite)
 
-                        Dim propSetId As ObjectId = PropertyDataServices.GetPropertySet(dbObject, propSetDefId)
+                        Dim propSetId As ObjectId = PropertyDataServices.GetPropertySet(dbObject1, propSetDefId)
                         Dim propSet As PropertySet = tr.GetObject(propSetId, OpenMode.ForWrite)
 
                         For Each propDef As PropertyDefinition In propSetDef.Definitions
 
                             If Not propDef.Automatic Then
-                                If propSet.PropertySetDefinitionName.ToUpper = obj.NParam.ToUpper Then
+                                If propDef.Name.ToUpper = obj.NParam.ToUpper Then
 
                                     If obj.tipoParam.ToUpper = "TEXT" Then propSet.SetAt(propSet.PropertyNameToId(propDef.Name), obj.textVal.ToString)
-                                    If obj.tipoParam.ToUpper = "REAL" Then propSet.SetAt(propSet.PropertyNameToId(propDef.Name), obj.textVal)
-                                    If obj.tipoParam.ToUpper = "BOOLEAN" Then propSet.SetAt(propSet.PropertyNameToId(propDef.Name), obj.textVal)
-                                    If obj.tipoParam.ToUpper = "INTEGER" Then propSet.SetAt(propSet.PropertyNameToId(propDef.Name), obj.textVal)
+
+                                    If obj.tipoParam.ToUpper = "REAL" Then
+
+                                        propSet.SetAt(propSet.PropertyNameToId(propDef.Name), Convert.ToDouble(obj.textVal.ToString))
+                                    End If
+                                    If obj.tipoParam.ToUpper = "TRUEFALSE" Then
+
+                                        If obj.textVal.ToString.ToUpper = "TRUE" Then
+                                            propSet.SetAt(propSet.PropertyNameToId(propDef.Name), True)
+
+                                        Else
+                                            propSet.SetAt(propSet.PropertyNameToId(propDef.Name), False)
+
+
+                                        End If
+                                    End If
+                                    If obj.tipoParam.ToUpper = "INTEGER" Then
+
+                                        propSet.SetAt(propSet.PropertyNameToId(propDef.Name), Convert.ToInt64(obj.textVal.ToString))
+                                    End If
 
                                 End If
                             End If
@@ -178,7 +244,12 @@ Public Class Form_ImportaFile
 
 
 
-            Catch
+            Catch ex As Exception
+
+                workbook.Dispose()
+
+                MsgBox("Something was wrong....")
+
 
             End Try
 
@@ -187,16 +258,19 @@ Public Class Form_ImportaFile
 
         End Using
 
+        MsgBox("File Imported succesfully....", _captionImp)
 
+        Me.Close()
 
 
     End Sub
 
     Private Sub ButtonANN_Click(sender As Object, e As EventArgs) Handles ButtonANN.Click
+        Me.Close()
 
     End Sub
 
     Private Sub Form_ImportaFile_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        Me.Text = _captionImp
     End Sub
 End Class

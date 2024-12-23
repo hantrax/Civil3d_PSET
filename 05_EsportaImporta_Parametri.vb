@@ -31,6 +31,7 @@ Imports DocumentFormat.OpenXml
 Imports Cell = DocumentFormat.OpenXml.Spreadsheet.Cell
 Imports Row = DocumentFormat.OpenXml.Spreadsheet.Row
 Imports DocumentFormat.OpenXml.VariantTypes
+Imports Autodesk.AutoCAD.Colors
 
 
 
@@ -188,7 +189,84 @@ a000:       Autodesk.AutoCAD.ApplicationServices.Application.ShowModalDialog(Frm
 
 a200:   End Sub
 
+        Public Shared Function StringToHandle(ByVal strHandle As String) As Handle
+            Dim handle As Handle = New Handle()
 
+            Try
+                Dim nHandle As Int64 = Convert.ToInt64(strHandle, 16)
+                handle = New Handle(nHandle)
+            Catch __unusedFormatException1__ As System.FormatException
+            End Try
+
+            Return handle
+        End Function
+
+        Public Shared Function HandleToObjectId(ByVal db As Database, ByVal h As Handle) As ObjectId
+            Dim id As ObjectId = ObjectId.Null
+
+            Try
+                id = db.GetObjectId(False, h, 0)
+            Catch x As Autodesk.AutoCAD.Runtime.Exception
+
+                If x.ErrorStatus <> Autodesk.AutoCAD.Runtime.ErrorStatus.UnknownHandle Then
+                    Throw x
+                End If
+            End Try
+
+            Return id
+        End Function
+        Public Shared Sub AddLayer(ByVal nameLayer As String, ByVal nColor As Integer) ' | per nessun color 9999 per nessun colore
+            Dim myDWG As ApplicationServices.Document
+            Dim myDB As DatabaseServices.Database
+            Dim myTransMan As DatabaseServices.TransactionManager
+            Dim myTrans As DatabaseServices.Transaction
+
+            myDWG = ApplicationServices.Application.DocumentManager.MdiActiveDocument
+            myDB = myDWG.Database
+            myTransMan = myDWG.TransactionManager
+            myTrans = myTransMan.StartTransaction
+
+            Dim myLT As DatabaseServices.LayerTable
+            Dim myLayer As New DatabaseServices.LayerTableRecord
+            Dim mySTE As DatabaseServices.SymbolTableEnumerator
+            Dim myLTR As DatabaseServices.LayerTableRecord
+            Dim contr_Layer As Integer = 0
+
+            myLT = myDB.LayerTableId.GetObject(DatabaseServices.OpenMode.ForWrite)
+
+            mySTE = myLT.GetEnumerator
+            While mySTE.MoveNext
+                myLTR = mySTE.Current.GetObject(DatabaseServices.OpenMode.ForRead)
+
+                If UCase(myLTR.Name) = UCase(nameLayer) Then contr_Layer = 1
+
+            End While
+
+            If contr_Layer = 0 Then
+                myLayer.Name = nameLayer
+                If nColor <> 9999 Then myLayer.Color = Autodesk.AutoCAD.Colors.Color.FromColorIndex(ColorMethod.ByAci, nColor)
+                myLT.Add(myLayer)
+
+                myTrans.AddNewlyCreatedDBObject(myLayer, True)
+            End If
+
+            myTrans.Commit()
+            myTrans.Dispose()
+            myTransMan.Dispose()
+
+        End Sub
+        Public Shared Function ConvertToLetter(iCol As Long) As String
+            Dim a As Long
+            Dim b As Long
+            a = iCol
+            ConvertToLetter = ""
+            Do While iCol > 0
+                a = Int((iCol - 1) / 26)
+                b = (iCol - 1) Mod 26
+                ConvertToLetter = Chr(b + 65) & ConvertToLetter
+                iCol = a
+            Loop
+        End Function
     End Class
 
 End Namespace

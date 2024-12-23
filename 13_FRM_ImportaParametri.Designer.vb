@@ -40,7 +40,7 @@ Partial Class Form_ImportaFile
         Label_mail.BackColor = Drawing.Color.DimGray
         Label_mail.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.78182F, Drawing.FontStyle.Bold, Drawing.GraphicsUnit.Point, CByte(0))
         Label_mail.ForeColor = Drawing.Color.White
-        Label_mail.Location = New System.Drawing.Point(249, 113)
+        Label_mail.Location = New System.Drawing.Point(234, 111)
         Label_mail.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Label_mail.Name = "Label_mail"
         Label_mail.Size = New System.Drawing.Size(233, 20)
@@ -53,7 +53,7 @@ Partial Class Form_ImportaFile
         TextBox1.BackColor = Drawing.Color.DimGray
         TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25F, Drawing.FontStyle.Bold, Drawing.GraphicsUnit.Point, CByte(0))
         TextBox1.ForeColor = Drawing.Color.White
-        TextBox1.Location = New System.Drawing.Point(28, 108)
+        TextBox1.Location = New System.Drawing.Point(13, 107)
         TextBox1.Name = "TextBox1"
         TextBox1.Size = New System.Drawing.Size(495, 29)
         TextBox1.TabIndex = 35
@@ -78,7 +78,7 @@ Partial Class Form_ImportaFile
         ' 
         ' ButtonPDF
         ' 
-        ButtonPDF.Location = New System.Drawing.Point(22, 49)
+        ButtonPDF.Location = New System.Drawing.Point(13, 49)
         ButtonPDF.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         ButtonPDF.Name = "ButtonPDF"
         ButtonPDF.Size = New System.Drawing.Size(825, 33)
@@ -88,14 +88,14 @@ Partial Class Form_ImportaFile
         ' 
         ' ProgressBar1
         ' 
-        ProgressBar1.Location = New System.Drawing.Point(28, 170)
+        ProgressBar1.Location = New System.Drawing.Point(13, 170)
         ProgressBar1.Name = "ProgressBar1"
         ProgressBar1.Size = New System.Drawing.Size(825, 38)
         ProgressBar1.TabIndex = 39
         ' 
         ' ButtonANN
         ' 
-        ButtonANN.Location = New System.Drawing.Point(728, 108)
+        ButtonANN.Location = New System.Drawing.Point(713, 105)
         ButtonANN.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         ButtonANN.Name = "ButtonANN"
         ButtonANN.Size = New System.Drawing.Size(125, 33)
@@ -107,7 +107,7 @@ Partial Class Form_ImportaFile
         ' 
         ButtonOk.BackColor = Drawing.Color.LightGreen
         ButtonOk.Enabled = False
-        ButtonOk.Location = New System.Drawing.Point(530, 108)
+        ButtonOk.Location = New System.Drawing.Point(524, 105)
         ButtonOk.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         ButtonOk.Name = "ButtonOk"
         ButtonOk.Size = New System.Drawing.Size(181, 33)
