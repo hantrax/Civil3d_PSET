@@ -10,20 +10,20 @@
       <UseWindowsForms>true</UseWindowsForms>
       <UseWPF>true</UseWPF>
       <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
-      <ImportedNamespaces>ClosedXML=False,ClosedXML.Attributes=False,ClosedXML.Excel=False,ClosedXML.Excel.CalcEngine=False,ClosedXML.Excel.CalcEngine.Functions=False,ClosedXML.Excel.Drawings=False,ClosedXML.Excel.Exceptions=False,ClosedXML.Excel.XLWorkbook=False,ClosedXML.Graphics=False,ClosedXML.Parser=False,ExcelNumberFormat=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,Civil3d_PSET_2025=True</ImportedNamespaces>
+      <ImportedNamespaces>ClosedXML=False,ClosedXML.Excel=False,ExcelNumberFormat=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,Civil3d_PSET_2025=True</ImportedNamespaces>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <RegisterForComInterop>True</RegisterForComInterop>
+    <RegisterForComInterop>False</RegisterForComInterop>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <RegisterForComInterop>True</RegisterForComInterop>
+    <RegisterForComInterop>False</RegisterForComInterop>
   </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="AutoCAD.NET" Version="25.0.1" />
         <PackageReference Include="ClosedXML" Version="0.102.3" />
-        <PackageReference Include="DocumentFormat.OpenXml" Version="3.0.0" />
+        <PackageReference Include="DocumentFormat.OpenXml" Version="2.20.0" />
         <PackageReference Include="Speckle.Civil3D.API" Version="2025.0.0" />
         <PackageReference Include="System.IO.Packaging" Version="9.0.0" />
         <PackageReference Include="System.Management" Version="9.0.0" />
@@ -88,15 +88,7 @@
     </ItemGroup>
     <ItemGroup>
       <Import Include="ClosedXML" />
-      <Import Include="ClosedXML.Attributes" />
       <Import Include="ClosedXML.Excel" />
-      <Import Include="ClosedXML.Excel.CalcEngine" />
-      <Import Include="ClosedXML.Excel.CalcEngine.Functions" />
-      <Import Include="ClosedXML.Excel.Drawings" />
-      <Import Include="ClosedXML.Excel.Exceptions" />
-      <Import Include="ClosedXML.Excel.XLWorkbook" />
-      <Import Include="ClosedXML.Graphics" />
-      <Import Include="ClosedXML.Parser" />
       <Import Include="ExcelNumberFormat" />
     </ItemGroup>
 </Project>

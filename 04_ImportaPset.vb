@@ -23,6 +23,9 @@ Imports ClosedXML.Excel
 Imports System.Globalization
 
 
+Imports Autodesk.Internal.InfoCenter
+Imports Application = Autodesk.AutoCAD.ApplicationServices.Application
+Imports DBObject = Autodesk.AutoCAD.DatabaseServices.DBObject
 
 
 
@@ -57,7 +60,7 @@ Namespace Civil3d_PSET_2025
         ' * and double click on myCommands.resx
         '<CommandMethod("ProvaPSET", "MyCommand", "MyCommandLocal", CommandFlags.Modal)>
 
-        <CommandMethod("CreaPset", CommandFlags.Session)>
+        <CommandMethod("PsetImp", CommandFlags.Session)>
         Public Sub Createset()
 
            
@@ -117,7 +120,157 @@ a000:       Autodesk.AutoCAD.ApplicationServices.Application.ShowModalDialog(Frm
 
 a200:   End Sub
 
+        <CommandMethod("copyPar", CommandFlags.Session)>
+        Public Sub CopyParam()
+            Dim doc As Document = Application.DocumentManager.MdiActiveDocument
+            Dim ed As Editor = doc.Editor
+            Dim db As Database = doc.Database
 
+            Dim myDWG As ApplicationServices.Document
+
+            myDWG = ApplicationServices.Application.DocumentManager.MdiActiveDocument
+            myDWG.LockDocument()
+
+            Dim res As PromptEntityResult = ed.GetEntity(vbCrLf & "Select Source entity: ")
+            If res.Status <> PromptStatus.OK Then Exit Sub
+
+            Dim res1 As PromptEntityResult = ed.GetEntity(vbCrLf & "Select Target entity: ")
+            If res1.Status <> PromptStatus.OK Then Exit Sub
+
+            Dim lstParamSource As New List(Of ParametriVal)
+            Dim lstParamTarget As New List(Of ParametriVal)
+            Dim dicParamSource = New Dictionary(Of String, ParametriVal)
+
+
+            Using tr As Transaction = db.TransactionManager.StartTransaction
+                Dim dbObject As Autodesk.AutoCAD.DatabaseServices.DBObject = tr.GetObject(res.ObjectId, OpenMode.ForRead)
+
+                Dim ids As AutoCAD.DatabaseServices.ObjectIdCollection = PropertyDataServices.GetPropertySetDefinitionsUsed(dbObject)
+
+                For Each propSetDefId As ObjectId In ids
+                    Dim propSetDef As PropertySetDefinition = tr.GetObject(propSetDefId, OpenMode.ForRead)
+
+
+                    ' If propSetDef.Name.Contains("PSET") = True Then
+
+                    Dim propSetId As ObjectId = PropertyDataServices.GetPropertySet(dbObject, propSetDefId)
+                    Dim propSet As PropertySet = tr.GetObject(propSetId, OpenMode.ForRead)
+
+                    'ed.WriteMessage(vbCrLf & "Property Set Defintion Name: " & propSetDef.Name)
+
+                    For Each propDef As PropertyDefinition In propSetDef.Definitions
+                        Dim val As Object = propSet.GetAt(propSet.PropertyNameToId(propDef.Name))
+                        If val IsNot Nothing Then
+                            Dim TMPPar As New ParametriVal
+
+                            TMPPar.PsetName = propSet.PropertySetDefinitionName
+                            TMPPar.NParam = propDef.Name
+                            TMPPar.tipoParam = propDef.DataType.ToString
+                            TMPPar.textVal = val
+
+
+                            If propDef.Automatic = False Then
+
+                                If Not dicParamSource.ContainsKey(TMPPar.NParam) Then
+                                    dicParamSource.Add(TMPPar.NParam, TMPPar) ' creo la chiave
+                                End If
+
+
+                                lstParamSource.Add(TMPPar)
+                            End If
+
+                        Else
+                            Dim TMPPar As New ParametriVal
+
+                            TMPPar.PsetName = propSet.PropertySetDefinitionName
+                            TMPPar.NParam = propDef.Name
+                            TMPPar.tipoParam = propDef.DataType.ToString
+                            TMPPar.textVal = "NULL"
+
+                            If Not dicParamSource.ContainsKey(TMPPar.NParam) Then
+                                dicParamSource.Add(TMPPar.NParam, TMPPar) ' creo la chiave
+                            End If
+
+                        End If
+                    Next
+
+                Next
+                'scrivo i dati nel target object
+                dbObject = tr.GetObject(res1.ObjectId, OpenMode.ForRead)
+
+                ids = PropertyDataServices.GetPropertySetDefinitionsUsed(dbObject)
+
+                If ids.Count = 0 Then
+
+                    MsgBox("Target Object has no PropertySet")
+                    GoTo a300
+
+                End If
+
+                Dim dbObj As Autodesk.AutoCAD.DatabaseServices.DBObject = tr.GetObject(res1.ObjectId, OpenMode.ForWrite)
+
+
+                For Each ParamCustom In lstParamSource
+
+                    SetMyPropertySetPropertyOBJ(dbObj, ParamCustom.tipoParam, ParamCustom.textVal, db, ParamCustom.NParam, ParamCustom.PsetName)
+
+                Next
+
+
+a300:           myDWG.LockDocument.Dispose()
+                tr.Commit()
+            End Using
+        End Sub
+        Public Function SetMyPropertySetPropertyOBJ(ByRef dbObject As DBObject, tipoParam As String, textValue As Object, db As Database, MyParameter As String, PSET As String) As Boolean
+            Dim propSetDefId As ObjectId = GetMyPropertySetDefinition(db, PSET)
+
+            If propSetDefId = ObjectId.Null Then Return False
+
+            'PropertyDataServices.AddPropertySet(dbObject, propSetDefId)
+
+            Dim propSetId As ObjectId = PropertyDataServices.GetPropertySet(dbObject, propSetDefId)
+            Using tr As Transaction = db.TransactionManager.StartTransaction
+                Dim propSet As PropertySet = tr.GetObject(propSetId, OpenMode.ForWrite)
+
+                'Dim strProp As PropertyDefinition = propSet.GetAt(propSet.PropertyNameToId(MyParameter))
+
+                Select Case tipoParam.ToUpper
+                    Case "TEXT"
+
+                        propSet.SetAt(propSet.PropertyNameToId(MyParameter), textValue.ToString)
+
+                    Case "REAL"
+
+                        propSet.SetAt(propSet.PropertyNameToId(MyParameter), textValue)
+
+                    Case "INTEGER"
+
+                        propSet.SetAt(propSet.PropertyNameToId(MyParameter), textValue)
+                    Case Else
+
+                        propSet.SetAt(propSet.PropertyNameToId(MyParameter), textValue)
+
+                End Select
+
+                tr.Commit()
+            End Using
+            Return True
+        End Function
+        Private Function GetMyPropertySetDefinition(db As Database, MyParameter As String) As ObjectId
+            Dim propSetDefId As ObjectId = Nothing
+            Dim propSetDefName As String = MyParameter
+            Dim dictPropSetDef = New DictionaryPropertySetDefinitions(db)
+
+            Using tr As Transaction = db.TransactionManager.StartTransaction
+                If dictPropSetDef.Has(propSetDefName, tr) Then
+                    propSetDefId = dictPropSetDef.GetAt(propSetDefName)
+                    tr.Commit()
+
+                End If
+            End Using
+
+            Return propSetDefId
+        End Function
     End Class
 
 End Namespace

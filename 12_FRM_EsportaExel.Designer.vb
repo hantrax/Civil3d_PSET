@@ -53,9 +53,9 @@ Partial Class Form_EsportaFile
         ' 
         ButtonOK.BackColor = Drawing.Color.LightGreen
         ButtonOK.Enabled = False
-        ButtonOK.Location = New System.Drawing.Point(514, 103)
+        ButtonOK.Location = New System.Drawing.Point(524, 102)
         ButtonOK.Name = "ButtonOK"
-        ButtonOK.Size = New System.Drawing.Size(163, 37)
+        ButtonOK.Size = New System.Drawing.Size(138, 33)
         ButtonOK.TabIndex = 1
         ButtonOK.Text = "GO..."
         ButtonOK.UseVisualStyleBackColor = False
@@ -63,9 +63,9 @@ Partial Class Form_EsportaFile
         ' 
         ' ButtonCancell
         ' 
-        ButtonCancell.Location = New System.Drawing.Point(694, 103)
+        ButtonCancell.Location = New System.Drawing.Point(668, 103)
         ButtonCancell.Name = "ButtonCancell"
-        ButtonCancell.Size = New System.Drawing.Size(88, 37)
+        ButtonCancell.Size = New System.Drawing.Size(114, 33)
         ButtonCancell.TabIndex = 2
         ButtonCancell.Text = "Cancell"
         ButtonCancell.UseVisualStyleBackColor = True

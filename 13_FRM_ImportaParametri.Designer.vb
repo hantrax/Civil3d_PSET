@@ -32,6 +32,8 @@ Partial Class Form_ImportaFile
         ProgressBar1 = New System.Windows.Forms.ProgressBar()
         ButtonANN = New System.Windows.Forms.Button()
         ButtonOk = New System.Windows.Forms.Button()
+        GroupBox1 = New System.Windows.Forms.GroupBox()
+        GroupBox1.SuspendLayout()
         SuspendLayout()
         ' 
         ' Label_mail
@@ -40,7 +42,7 @@ Partial Class Form_ImportaFile
         Label_mail.BackColor = Drawing.Color.DimGray
         Label_mail.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.78182F, Drawing.FontStyle.Bold, Drawing.GraphicsUnit.Point, CByte(0))
         Label_mail.ForeColor = Drawing.Color.White
-        Label_mail.Location = New System.Drawing.Point(234, 111)
+        Label_mail.Location = New System.Drawing.Point(240, 111)
         Label_mail.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Label_mail.Name = "Label_mail"
         Label_mail.Size = New System.Drawing.Size(233, 20)
@@ -53,7 +55,7 @@ Partial Class Form_ImportaFile
         TextBox1.BackColor = Drawing.Color.DimGray
         TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25F, Drawing.FontStyle.Bold, Drawing.GraphicsUnit.Point, CByte(0))
         TextBox1.ForeColor = Drawing.Color.White
-        TextBox1.Location = New System.Drawing.Point(13, 107)
+        TextBox1.Location = New System.Drawing.Point(19, 107)
         TextBox1.Name = "TextBox1"
         TextBox1.Size = New System.Drawing.Size(495, 29)
         TextBox1.TabIndex = 35
@@ -63,7 +65,7 @@ Partial Class Form_ImportaFile
         ' 
         LabelDEMO.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.78182F, Drawing.FontStyle.Bold, Drawing.GraphicsUnit.Point, CByte(0))
         LabelDEMO.ForeColor = Drawing.Color.Red
-        LabelDEMO.Location = New System.Drawing.Point(30, 144)
+        LabelDEMO.Location = New System.Drawing.Point(36, 144)
         LabelDEMO.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         LabelDEMO.Name = "LabelDEMO"
         LabelDEMO.Size = New System.Drawing.Size(706, 23)
@@ -78,27 +80,27 @@ Partial Class Form_ImportaFile
         ' 
         ' ButtonPDF
         ' 
-        ButtonPDF.Location = New System.Drawing.Point(13, 49)
+        ButtonPDF.Location = New System.Drawing.Point(7, 22)
         ButtonPDF.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         ButtonPDF.Name = "ButtonPDF"
-        ButtonPDF.Size = New System.Drawing.Size(825, 33)
+        ButtonPDF.Size = New System.Drawing.Size(762, 33)
         ButtonPDF.TabIndex = 36
-        ButtonPDF.Text = "Select Excel file..."
+        ButtonPDF.Text = "Select Excel Source file..."
         ButtonPDF.UseVisualStyleBackColor = True
         ' 
         ' ProgressBar1
         ' 
-        ProgressBar1.Location = New System.Drawing.Point(13, 170)
+        ProgressBar1.Location = New System.Drawing.Point(19, 170)
         ProgressBar1.Name = "ProgressBar1"
-        ProgressBar1.Size = New System.Drawing.Size(825, 38)
+        ProgressBar1.Size = New System.Drawing.Size(762, 38)
         ProgressBar1.TabIndex = 39
         ' 
         ' ButtonANN
         ' 
-        ButtonANN.Location = New System.Drawing.Point(713, 105)
+        ButtonANN.Location = New System.Drawing.Point(667, 103)
         ButtonANN.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         ButtonANN.Name = "ButtonANN"
-        ButtonANN.Size = New System.Drawing.Size(125, 33)
+        ButtonANN.Size = New System.Drawing.Size(114, 33)
         ButtonANN.TabIndex = 38
         ButtonANN.Text = "Cancell"
         ButtonANN.UseVisualStyleBackColor = True
@@ -107,29 +109,42 @@ Partial Class Form_ImportaFile
         ' 
         ButtonOk.BackColor = Drawing.Color.LightGreen
         ButtonOk.Enabled = False
-        ButtonOk.Location = New System.Drawing.Point(524, 105)
+        ButtonOk.Location = New System.Drawing.Point(521, 103)
         ButtonOk.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
         ButtonOk.Name = "ButtonOk"
-        ButtonOk.Size = New System.Drawing.Size(181, 33)
+        ButtonOk.Size = New System.Drawing.Size(138, 33)
         ButtonOk.TabIndex = 37
         ButtonOk.Text = "Go..."
         ButtonOk.UseVisualStyleBackColor = False
         ButtonOk.Visible = False
         ' 
+        ' GroupBox1
+        ' 
+        GroupBox1.Controls.Add(ButtonPDF)
+        GroupBox1.Location = New System.Drawing.Point(12, 12)
+        GroupBox1.Name = "GroupBox1"
+        GroupBox1.Size = New System.Drawing.Size(776, 74)
+        GroupBox1.TabIndex = 40
+        GroupBox1.TabStop = False
+        GroupBox1.Text = "Import Parameters"
+        ' 
         ' Form_ImportaFile
         ' 
         AutoScaleDimensions = New System.Drawing.SizeF(7F, 15F)
         AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        ClientSize = New System.Drawing.Size(860, 219)
-        Controls.Add(ButtonPDF)
+        ClientSize = New System.Drawing.Size(800, 216)
+        Controls.Add(GroupBox1)
         Controls.Add(ProgressBar1)
         Controls.Add(ButtonANN)
         Controls.Add(ButtonOk)
         Controls.Add(Label_mail)
         Controls.Add(TextBox1)
         Controls.Add(LabelDEMO)
+        MaximumSize = New System.Drawing.Size(816, 255)
+        MinimumSize = New System.Drawing.Size(816, 255)
         Name = "Form_ImportaFile"
         Text = "Form1"
+        GroupBox1.ResumeLayout(False)
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -144,4 +159,5 @@ Partial Class Form_ImportaFile
     Friend WithEvents ProgressBar1 As System.Windows.Forms.ProgressBar
     Friend WithEvents ButtonANN As System.Windows.Forms.Button
     Friend WithEvents ButtonOk As System.Windows.Forms.Button
+    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
 End Class

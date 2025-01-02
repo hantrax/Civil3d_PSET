@@ -79,7 +79,7 @@ Public Class Form_ImportaFile
         myDWG = ApplicationServices.Application.DocumentManager.MdiActiveDocument
         myDWG.LockDocument()
 
-
+        ProgressBar1.Minimum = 0
         Dim workbook = New XLWorkbook(strNomeFile)
 
         'Dim xlworksheet_Param = workbook.Worksheet("CivilPARAM")
@@ -94,6 +94,8 @@ Public Class Form_ImportaFile
                     If worksheet.Name.Contains("Civil") Then Continue For
 
                     Dim lastRow As Integer = worksheet.LastRowUsed().RowNumber()
+                    If lastRow = 1 Then Continue For
+
                     Dim lastCol As Integer = worksheet.LastColumnUsed().ColumnNumber
 
                     Dim tmpParam As New ParametriVal
@@ -149,6 +151,8 @@ Public Class Form_ImportaFile
 
                 For Each obj In lstParamSource
 
+                    ProgressBar1.Maximum = lstParamSource.Count
+                    ProgressBar1.Step = 1
 
                     'HANDLE	LAYER	OBJ TYPE
 
@@ -205,10 +209,17 @@ Public Class Form_ImportaFile
                                     If obj.tipoParam.ToUpper = "TEXT" Then propSet.SetAt(propSet.PropertyNameToId(propDef.Name), obj.textVal.ToString)
 
                                     If obj.tipoParam.ToUpper = "REAL" Then
+                                        If obj.textVal.ToString = "" Then
+                                            propSet.SetAt(propSet.PropertyNameToId(propDef.Name), Convert.ToDouble("0"))
 
-                                        propSet.SetAt(propSet.PropertyNameToId(propDef.Name), Convert.ToDouble(obj.textVal.ToString))
+                                        Else
+
+                                            propSet.SetAt(propSet.PropertyNameToId(propDef.Name), Convert.ToDouble(obj.textVal.ToString))
+
+                                        End If
+
                                     End If
-                                    If obj.tipoParam.ToUpper = "TRUEFALSE" Then
+                                        If obj.tipoParam.ToUpper = "TRUEFALSE" Then
 
                                         If obj.textVal.ToString.ToUpper = "TRUE" Then
                                             propSet.SetAt(propSet.PropertyNameToId(propDef.Name), True)
@@ -221,7 +232,18 @@ Public Class Form_ImportaFile
                                     End If
                                     If obj.tipoParam.ToUpper = "INTEGER" Then
 
-                                        propSet.SetAt(propSet.PropertyNameToId(propDef.Name), Convert.ToInt64(obj.textVal.ToString))
+
+                                        If obj.textVal.ToString = "" Then
+                                            propSet.SetAt(propSet.PropertyNameToId(propDef.Name), Convert.ToInt64("0"))
+
+                                        Else
+
+                                            propSet.SetAt(propSet.PropertyNameToId(propDef.Name), Convert.ToInt64(obj.textVal.ToString))
+
+                                        End If
+
+
+
                                     End If
 
                                 End If
@@ -236,11 +258,10 @@ Public Class Form_ImportaFile
                     Next
 
 
-
+                    ProgressBar1.PerformStep()
                 Next
 
 
-                ProgressBar1.Minimum = 0
 
 
 
@@ -258,7 +279,7 @@ Public Class Form_ImportaFile
 
         End Using
 
-        MsgBox("File Imported succesfully....", _captionImp)
+        MsgBox("Values Imported succesfully....",, _captionImp)
 
         Me.Close()
 
