@@ -79,6 +79,10 @@ Public Class Form_EsportaFile
 
         Dim listaColAutom = New Dictionary(Of String, Integer) ' dizionario dei risultati (somma dei valori)
 
+        Dim listaParam = New Dictionary(Of String, Integer) ' dizionario dei risultati (somma dei valori)
+
+
+
         ProgressBar1.Minimum = 0
 
         myDWG = ApplicationServices.Application.DocumentManager.MdiActiveDocument
@@ -158,6 +162,7 @@ Public Class Form_EsportaFile
 
 
                 Dim row As Integer = 2
+                Dim cont As Integer = 4
 
                 For Each sobj As SelectedObject In acSSPrompt.Value
 
@@ -193,7 +198,7 @@ Public Class Form_EsportaFile
                     row = lastRow + 1
                     Dim nomeLayer As String = myAcadEnt.Layer
 
-
+                  
 
 
                     For Each propSetDefId As ObjectId In ids
@@ -206,6 +211,19 @@ Public Class Form_EsportaFile
                             Dim val As Object = propSet.GetAt(propSet.PropertyNameToId(propDef.Name))
                             If val Is Nothing Then val = "NULL"
                             Dim TMPPar As New ParametriVal
+
+                            If propDef.Name.ToUpper = "RFI_TIPOLOGIASEZIONE" Then
+
+                                Dim xe = 1
+
+                            End If
+
+                            If Not listaParam.ContainsKey(propDef.Name) Then
+                                listaParam.Add(propDef.Name, cont) ' creo la chiave
+                                cont += 1
+                            End If
+
+
                             TMPPar.PsetName = propSet.PropertySetDefinitionName
                             TMPPar.NParam = propDef.Name
                             TMPPar.tipoParam = propDef.DataType.ToString
@@ -217,6 +235,14 @@ Public Class Form_EsportaFile
                                 TMPPar.autoParam = False
 
                             End If
+
+                            If dbObject.Handle.ToString.ToUpper = "90C187E" Then
+
+                                Dim cc As String = "QQ"
+
+
+                            End If
+
                             TMPPar.HANDLEOBJ = dbObject.Handle
 
                             lstParamSource.Add(TMPPar)
@@ -227,6 +253,8 @@ Public Class Form_EsportaFile
 
 
                     Next
+
+
 
 
                     Dim col As Integer = 4
@@ -248,6 +276,17 @@ Public Class Form_EsportaFile
                         'xlworksheet_Param.Column(1).Style.Fill.BackgroundColor = XLColor.LightBlue
                         xlworksheet_Param.Cell(row, 2).Value = nomeLayer.ToUpper
                         xlworksheet_Param.Cell(row, 3).Value = etyp.ToUpper
+
+
+                        If listaParam.ContainsKey(tmpParamEX.NParam) Then
+
+                            col = listaParam(tmpParamEX.NParam)
+
+
+
+                        End If
+
+
                         xlworksheet_Param.Cell(1, col).Value = tmpParamEX.NParam.ToString & Environment.NewLine & tmpParamEX.PsetName.ToString & Environment.NewLine & tmpParamEX.tipoParam.ToString & Environment.NewLine & tmpParamEX.autoParam.ToString
 
                         If Not listaColAutom.ContainsKey(etyp.ToUpper & "|" & 1) Then listaColAutom.Add(etyp.ToUpper & "|" & 1, 1)

@@ -2,8 +2,8 @@
 Imports Autodesk.AutoCAD.DatabaseServices
 
 
-<Assembly: AssemblyVersion("2025.1.0.0")>
-<Assembly: AssemblyFileVersion("2025.1.0.0")>
+<Assembly: AssemblyVersion("2025.7.0.0")>
+<Assembly: AssemblyFileVersion("2025.7.0.0")>
 
 Module Variabili
 

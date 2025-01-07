@@ -160,11 +160,11 @@ Namespace Civil3d_PSET_2025
 
                 Dim button1 As RibbonCommandButton = New RibbonCommandButton(row)
                 button1.Text = "PSET from Excel"
-                Dim menuMac1 As MenuMacro = macGroup.CreateMenuMacro("Pset Import", "^C^CPsetImpt ", "PsetImpt", "PSET Import from Excel", MacroType.Any, Path_Image & "creapset.ico", Path_Image & "creapset.ico", "creapset_Label_Id")
+                Dim menuMac1 As MenuMacro = macGroup.CreateMenuMacro("Pset Import", "^C^CPsetImp ", "PsetImp", "PSET Import from Excel", MacroType.Any, Path_Image & "creapset.ico", Path_Image & "creapset.ico", "creapset_Label_Id")
                 button1.MacroID = menuMac1.ElementID
                 button1.ButtonStyle = RibbonButtonStyle.LargeWithText
-                button1.KeyTip = "Pset Import"
-                button1.TooltipTitle = "Pset Import"
+                button1.KeyTip = "Import PSET from Excel"
+                button1.TooltipTitle = "PsetImp"
                 row.Items.Add(button1)
                 'Dim separator1 As RibbonSeparator = New RibbonSeparator(row)
                 'separator1.SeparatorStyle = RibbonSeparatorStyle.Line
@@ -173,20 +173,21 @@ Namespace Civil3d_PSET_2025
 
                 Dim button2 As RibbonCommandButton = New RibbonCommandButton(row)
                 button2.Text = "Export to Excel"
-                Dim menuMac2 As MenuMacro = macGroup.CreateMenuMacro("ExpParam", "^C^CExpParam ", "Export Parameters to Excel", "ExpParam", MacroType.Any, Path_Image & "esporta.png", Path_Image & "esporta.png", "esporta_Label_Id")
+                Dim menuMac2 As MenuMacro = macGroup.CreateMenuMacro("ExpPar", "^C^CExpPar ", "ExpPar", "Export Parameters to Excel", MacroType.Any, Path_Image & "esporta.png", Path_Image & "esporta.png", "esporta_Label_Id")
                 button2.MacroID = menuMac2.ElementID
                 button2.ButtonStyle = RibbonButtonStyle.LargeWithText
                 button2.KeyTip = "Export Parameters to Excel"
-                button2.TooltipTitle = "Export Parameters to Excel"
+                button2.TooltipTitle = "ExpPar"
                 row.Items.Add(button2)
 
                 Dim button3 As RibbonCommandButton = New RibbonCommandButton(row)
                 button3.Text = "Import from Excel"
-                Dim menuMac3 As MenuMacro = macGroup.CreateMenuMacro("ImpParam", "^C^CImpParam ", "Import Parameters from Excel", "ImpParam", MacroType.Any, Path_Image & "importa.png", Path_Image & "importa.png", "importa_Label_Id")
+                Dim menuMac3 As MenuMacro = macGroup.CreateMenuMacro("ImpPar", "^C^CImpPar ", "ImpPar", "Import Parameters from Excel", MacroType.Any, Path_Image & "importa.png", Path_Image & "importa.png", "importa_Label_Id")
                 button3.MacroID = menuMac3.ElementID
                 button3.ButtonStyle = RibbonButtonStyle.LargeWithText
                 button3.KeyTip = "Import Parameters from Excel"
-                button3.TooltipTitle = "Import parameters from Excel"
+                button3.TooltipTitle = "ImpPar"
+
                 row.Items.Add(button3)
                 Dim separator3 As RibbonSeparator = New RibbonSeparator(row)
                 separator3.SeparatorStyle = RibbonSeparatorStyle.Line
@@ -194,11 +195,11 @@ Namespace Civil3d_PSET_2025
 
                 Dim button4 As RibbonCommandButton = New RibbonCommandButton(row)
                 button4.Text = "Copy Parameters"
-                Dim menuMac4 As MenuMacro = macGroup.CreateMenuMacro("copyPar", "^C^CcopyPar ", "Copy Parameters values from object", "copyPar", MacroType.Any, Path_Image & "copyparam.ico", Path_Image & "copyparam.ico", "copyPar_Label_Id")
+                Dim menuMac4 As MenuMacro = macGroup.CreateMenuMacro("copyPar", "^C^CcopyPar ", "copyPar", "Copy Parameters values from object", MacroType.Any, Path_Image & "copyparam.ico", Path_Image & "copyparam.ico", "copyPar_Label_Id")
                 button4.MacroID = menuMac4.ElementID
                 button4.ButtonStyle = RibbonButtonStyle.LargeWithText
                 button4.KeyTip = "Copy Parameters values"
-                button4.TooltipTitle = "Copy Parameters values"
+                button4.TooltipTitle = "copyPar"
                 row.Items.Add(button4)
                 Dim separator4 As RibbonSeparator = New RibbonSeparator(row)
                 separator4.SeparatorStyle = RibbonSeparatorStyle.Line

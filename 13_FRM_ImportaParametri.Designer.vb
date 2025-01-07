@@ -23,7 +23,6 @@ Partial Class Form_ImportaFile
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Label_mail = New System.Windows.Forms.Label()
-        TextBox1 = New System.Windows.Forms.TextBox()
         LabelDEMO = New System.Windows.Forms.Label()
         OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
@@ -33,6 +32,7 @@ Partial Class Form_ImportaFile
         ButtonANN = New System.Windows.Forms.Button()
         ButtonOk = New System.Windows.Forms.Button()
         GroupBox1 = New System.Windows.Forms.GroupBox()
+        TextBox1 = New System.Windows.Forms.TextBox()
         GroupBox1.SuspendLayout()
         SuspendLayout()
         ' 
@@ -49,17 +49,6 @@ Partial Class Form_ImportaFile
         Label_mail.TabIndex = 33
         Label_mail.Text = "stefano.carta74@gmail.com"
         Label_mail.TextAlign = Drawing.ContentAlignment.BottomLeft
-        ' 
-        ' TextBox1
-        ' 
-        TextBox1.BackColor = Drawing.Color.DimGray
-        TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25F, Drawing.FontStyle.Bold, Drawing.GraphicsUnit.Point, CByte(0))
-        TextBox1.ForeColor = Drawing.Color.White
-        TextBox1.Location = New System.Drawing.Point(19, 107)
-        TextBox1.Name = "TextBox1"
-        TextBox1.Size = New System.Drawing.Size(495, 29)
-        TextBox1.TabIndex = 35
-        TextBox1.Text = "STEFANO CARTA"
         ' 
         ' LabelDEMO
         ' 
@@ -128,6 +117,17 @@ Partial Class Form_ImportaFile
         GroupBox1.TabStop = False
         GroupBox1.Text = "Import Parameters"
         ' 
+        ' TextBox1
+        ' 
+        TextBox1.BackColor = Drawing.Color.DimGray
+        TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25F, Drawing.FontStyle.Bold, Drawing.GraphicsUnit.Point, CByte(0))
+        TextBox1.ForeColor = Drawing.Color.White
+        TextBox1.Location = New System.Drawing.Point(19, 107)
+        TextBox1.Name = "TextBox1"
+        TextBox1.Size = New System.Drawing.Size(473, 29)
+        TextBox1.TabIndex = 37
+        TextBox1.Text = "STEFANO CARTA"
+        ' 
         ' Form_ImportaFile
         ' 
         AutoScaleDimensions = New System.Drawing.SizeF(7F, 15F)
@@ -138,8 +138,8 @@ Partial Class Form_ImportaFile
         Controls.Add(ButtonANN)
         Controls.Add(ButtonOk)
         Controls.Add(Label_mail)
-        Controls.Add(TextBox1)
         Controls.Add(LabelDEMO)
+        Controls.Add(TextBox1)
         MaximumSize = New System.Drawing.Size(816, 255)
         MinimumSize = New System.Drawing.Size(816, 255)
         Name = "Form_ImportaFile"
@@ -150,7 +150,6 @@ Partial Class Form_ImportaFile
     End Sub
 
     Friend WithEvents Label_mail As System.Windows.Forms.Label
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
     Friend WithEvents LabelDEMO As System.Windows.Forms.Label
     Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
     Friend WithEvents FolderBrowserDialog1 As System.Windows.Forms.FolderBrowserDialog
@@ -160,4 +159,5 @@ Partial Class Form_ImportaFile
     Friend WithEvents ButtonANN As System.Windows.Forms.Button
     Friend WithEvents ButtonOk As System.Windows.Forms.Button
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
 End Class

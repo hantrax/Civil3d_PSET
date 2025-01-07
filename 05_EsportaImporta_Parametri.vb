@@ -67,7 +67,7 @@ Namespace Civil3d_PSET_2025
         ' * and double click on myCommands.resx
         '<CommandMethod("ProvaPSET", "MyCommand", "MyCommandLocal", CommandFlags.Modal)>
 
-        <CommandMethod("ExpParam", CommandFlags.Session)>
+        <CommandMethod("ExpPar", CommandFlags.Session)>
         Public Sub ExportParameters()
 
 
@@ -130,7 +130,7 @@ a000:       Autodesk.AutoCAD.ApplicationServices.Application.ShowModalDialog(Frm
 
 
 a200:   End Sub
-        <CommandMethod("ImpParam", CommandFlags.Session)>
+        <CommandMethod("ImpPar", CommandFlags.Session)>
         Public Sub ImportParameters()
 
 

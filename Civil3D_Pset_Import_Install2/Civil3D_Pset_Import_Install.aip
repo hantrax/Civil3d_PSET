@@ -5,10 +5,10 @@
     <ROW Property="ALLUSERS" Value="1"/>
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="Manufacturer" Value="AutoPlug"/>
-    <ROW Property="ProductCode" Value="1033:{9846F1CB-FCEF-4EB7-AF65-405093CB4678} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{4DFAE402-8A28-42FE-90A5-8001C9E8B1DC} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Civil3D_Pset_Import"/>
-    <ROW Property="ProductVersion" Value="2025.1.0.0" Options="32"/>
+    <ROW Property="ProductVersion" Value="2025.7.0.0" Options="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{E4F22457-F8E7-46B5-89C2-43148EC60920}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -51,7 +51,7 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
     <ROW File="creapset.ico" Component_="creapset.ico" FileName="creapset.ico" Attributes="0" SourcePath="..\creapset.ico" SelfReg="false"/>
-    <ROW File="Civil3d_PSET_2025.dll" Component_="Civil3d_PSET_2025.dll" FileName="CIVIL3~1.DLL|Civil3d_PSET_2025.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows\Civil3d_PSET_2025.dll" SelfReg="false"/>
+    <ROW File="Civil3d_PSET_2025.dll" Component_="Civil3d_PSET_2025.dll" FileName="CIVIL3~1.DLL|Civil3d_PSET_2025.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\Civil3d_PSET_2025.dll" SelfReg="false"/>
     <ROW File="ImportaPSET_Civil3D.txt" Component_="ImportaPSET_Civil3D.txt" FileName="IMPORT~1.TXT|ImportaPSET_Civil3D.txt" Attributes="0" SourcePath="..\ImportaPSET_Civil3D.txt" SelfReg="false"/>
     <ROW File="esporta.png" Component_="creapset.ico" FileName="esporta.png" Attributes="0" SourcePath="..\Image\esporta.png" SelfReg="false"/>
     <ROW File="importa.png" Component_="creapset.ico" FileName="importa.png" Attributes="0" SourcePath="..\Image\importa.png" SelfReg="false"/>
