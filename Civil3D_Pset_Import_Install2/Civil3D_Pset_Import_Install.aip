@@ -5,10 +5,10 @@
     <ROW Property="ALLUSERS" Value="1"/>
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="Manufacturer" Value="AutoPlug"/>
-    <ROW Property="ProductCode" Value="1033:{4DFAE402-8A28-42FE-90A5-8001C9E8B1DC} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{CB97D4DC-AD87-437F-B726-E5597DF9714D} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Civil3D_Pset_Import"/>
-    <ROW Property="ProductVersion" Value="2025.7.0.0" Options="32"/>
+    <ROW Property="ProductVersion" Value="2025.8.0.0" Options="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{E4F22457-F8E7-46B5-89C2-43148EC60920}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>

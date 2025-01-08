@@ -81,6 +81,8 @@ Public Class Form_EsportaFile
 
         Dim listaParam = New Dictionary(Of String, Integer) ' dizionario dei risultati (somma dei valori)
 
+        Dim listaCont = New Dictionary(Of String, Integer) ' dizionario dei risultati (somma dei valori)
+
 
 
         ProgressBar1.Minimum = 0
@@ -142,7 +144,7 @@ Public Class Form_EsportaFile
                     If Not lstTipo.Contains(etyp) Then
 
                         lstTipo.Add(etyp)
-
+                        listaCont.Add(etyp, 3)
                     End If
 
 
@@ -194,7 +196,9 @@ Public Class Form_EsportaFile
                     'lstAutom.Add(2)
                     'lstAutom.Add(3)
 
-                    Dim lastRow As Integer = xlworksheet_Param.LastRowUsed().RowNumber()
+                    Dim lastRow As Long = xlworksheet_Param.LastRowUsed().RowNumber()
+
+
                     row = lastRow + 1
                     Dim nomeLayer As String = myAcadEnt.Layer
 
@@ -212,15 +216,17 @@ Public Class Form_EsportaFile
                             If val Is Nothing Then val = "NULL"
                             Dim TMPPar As New ParametriVal
 
-                            If propDef.Name.ToUpper = "RFI_TIPOLOGIASEZIONE" Then
+                            'If propDef.Name.ToUpper = "RFI_TIPOLOGIASEZIONE" Then
 
-                                Dim xe = 1
+                            '    Dim xe = 1
 
-                            End If
+                            'End If
 
-                            If Not listaParam.ContainsKey(propDef.Name) Then
-                                listaParam.Add(propDef.Name, cont) ' creo la chiave
-                                cont += 1
+                            If Not listaParam.ContainsKey(etyp & "|" & propSet.PropertySetDefinitionName & "|" & propDef.Name) Then
+                                Dim lastCol As Long = listaCont(etyp) + 1
+                                listaParam.Add(etyp & "|" & propSet.PropertySetDefinitionName & "|" & propDef.Name, lastCol) ' creo la chiave
+                                listaCont(etyp) = lastCol
+                                'cont = lastCol + 1
                             End If
 
 
@@ -276,11 +282,12 @@ Public Class Form_EsportaFile
                         'xlworksheet_Param.Column(1).Style.Fill.BackgroundColor = XLColor.LightBlue
                         xlworksheet_Param.Cell(row, 2).Value = nomeLayer.ToUpper
                         xlworksheet_Param.Cell(row, 3).Value = etyp.ToUpper
+                        xlworksheet_Param.Cell(row, 2).Style.Fill.BackgroundColor = XLColor.LightGray
 
 
-                        If listaParam.ContainsKey(tmpParamEX.NParam) Then
+                        If listaParam.ContainsKey(etyp & "|" & tmpParamEX.PsetName & "|" & tmpParamEX.NParam) Then
 
-                            col = listaParam(tmpParamEX.NParam)
+                            col = listaParam(etyp & "|" & tmpParamEX.PsetName & "|" & tmpParamEX.NParam)
 
 
 
@@ -296,10 +303,12 @@ Public Class Form_EsportaFile
                         If tmpParamEX.textVal.ToString = "NULL" Then
 
                             xlworksheet_Param.Cell(row, col).Value = ""
+                            xlworksheet_Param.Cell(row, col).Style.Fill.BackgroundColor = XLColor.LightGray
 
                         Else
 
                             xlworksheet_Param.Cell(row, col).Value = tmpParamEX.textVal.ToString
+                            xlworksheet_Param.Cell(row, col).Style.Fill.BackgroundColor = XLColor.LightGray
                         End If
 
                         If tmpParamEX.autoParam = True Then
